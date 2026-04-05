@@ -79,7 +79,7 @@ hover:shadow-2xl transition duration-300 hover:-translate-y-2 hover:scale-[1.02]
 }}   // ✅ IMPORTANT
 />
 
-  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition duration-300 flex items-center justify-center">
+  <div className="absolute inset-0 pointer-events-none bg-black/0 group-hover:bg-black/50 transition duration-300 flex items-center justify-center">  
     <span className="text-white text-sm tracking-wide opacity-0 group-hover:opacity-100 transition">
       View Artwork
     </span>
@@ -105,7 +105,7 @@ hover:shadow-2xl transition duration-300 hover:-translate-y-2 hover:scale-[1.02]
       <img
         src={selectedImage.image_url}
         alt={selectedImage.title || "Artwork"}
-        className="max-w-[90%] max-h-[90%] rounded-lg shadow-lg"
+  className="max-w-[90%] max-h-[90%] rounded-lg shadow-lg animate-[zoomIn_0.2s_ease]"
         onClick={(e) => e.stopPropagation()} // ✅ prevent close when clicking image
       />
 
