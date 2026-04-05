@@ -2,7 +2,8 @@ const API = "https://artist-gallery-backend.onrender.com/api";
 
 // GET all images
 export const getImages = async () => {
-  const res = await fetch(`${API}/images/`);
+  const res = await fetch(`${API}/images`);
+  if (!res.ok) throw new Error("Failed to fetch images");
   return res.json();
 };
 
@@ -16,7 +17,10 @@ export const login = async (data) => {
     body: JSON.stringify(data),
   });
 
-  return res.json();
+  const result = await res.json();
+  if (!res.ok) throw new Error(result.message || "Login failed");
+
+  return result;
 };
 
 // REGISTER
@@ -29,12 +33,15 @@ export const register = async (data) => {
     body: JSON.stringify(data),
   });
 
-  return res.json();
+  const result = await res.json();
+  if (!res.ok) throw new Error(result.message || "Register failed");
+
+  return result;
 };
 
 // UPLOAD IMAGE
 export const uploadImage = async (formData, token) => {
-  const res = await fetch(`${API}/images/`, {
+  const res = await fetch(`${API}/images`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -42,5 +49,8 @@ export const uploadImage = async (formData, token) => {
     body: formData,
   });
 
-  return res.json();
+  const result = await res.json();
+  if (!res.ok) throw new Error(result.message || "Upload failed");
+
+  return result;
 };
