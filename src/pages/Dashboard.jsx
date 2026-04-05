@@ -23,7 +23,7 @@ export default function Dashboard() {
   }
 
   const formData = new FormData();
-  formData.append("image", file);
+  formData.append("image", file, file.name);
   formData.append("title", title);
 
   try {
@@ -36,6 +36,10 @@ export default function Dashboard() {
     console.error(err);
     alert("Upload failed ❌");
   }
+
+  console.log("FILE:", file);
+console.log("TITLE:", title);
+console.log("TOKEN:", token);
 };
 
   const handleDelete = async (id) => {
@@ -50,7 +54,13 @@ export default function Dashboard() {
     <div className="bg-white p-6 rounded-2xl shadow mb-8 flex gap-4 items-center">
       <input
   type="file"
-  onChange={(e) => setFile(e.target.files[0])}
+  onChange={(e) => {
+    const f = e.target.files[0];
+    if (f) {
+      console.log("Selected file:", f); // DEBUG
+      setFile(f);
+    }
+  }}
 />
 
 <input
@@ -59,9 +69,7 @@ export default function Dashboard() {
   onChange={(e) => setTitle(e.target.value)}
 />
 
-<button onClick={handleUpload}>
-  Upload
-</button>
+
 
 <button
   onClick={handleUpload}
