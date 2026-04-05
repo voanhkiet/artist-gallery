@@ -15,13 +15,13 @@ export default function Dashboard() {
     getImages().then(setImages);
   };
 
- useEffect(() => {
+useEffect(() => {
   if (!token) {
-    navigate("/login"); // 🔥 redirect immediately
+    navigate("/login");
   } else {
     loadImages();
   }
-}, [token]);
+}, [token, navigate]); // ✅ add navigate
 
   const handleUpload = async () => {
   
