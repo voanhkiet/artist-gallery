@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { login } from "../services/api";
+import { useNavigate } from "react-router-dom";
 
-export default function Login() {
+export default function Login({ setToken}) {
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // 🚨 MUST HAVE
@@ -16,9 +19,11 @@ export default function Login() {
       console.log(res); // debug
       localStorage.setItem("token", res.token);
 
-      alert("Login success ✅");
+     
 
-      window.location.href = "/dashboard";
+      setToken(res.token); 
+      alert("Login success ✅");
+      navigate("/dashboard");
     } catch (err) {
       console.error(err);
       alert("Login failed ❌");

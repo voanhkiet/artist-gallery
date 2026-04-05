@@ -17,6 +17,14 @@ export default function Dashboard() {
   }, []);
 
   const handleUpload = async () => {
+  
+    // ✅ CHECK LOGIN FIRST
+  if (!token) {
+    alert("Please login first 🔒");
+    window.location.href = "/login";
+    return;
+  } 
+
   if (!file || !title) {
     alert("Please select file and enter title");
     return;
@@ -37,9 +45,6 @@ export default function Dashboard() {
     alert("Upload failed ❌");
   }
   
-  console.log("FILE:", file);
-console.log("TITLE:", title);
-console.log("TOKEN:", token);
 };
 
   const handleDelete = async (id) => {
@@ -53,8 +58,7 @@ console.log("TOKEN:", token);
 
     <div className="bg-white p-6 rounded-2xl shadow mb-8 flex flex-col md:flex-row gap-4 items-center">
 
-  {/* FILE INPUT */}
-  <label className="cursor-pointer bg-gray-200 px-4 py-2 rounded-lg hover:bg-gray-300">
+  <label className="cursor-pointer bg-gray-200 px-4 py-2 rounded-lg hover:bg-gray-300 whitespace-nowrap">
     Choose Image
     <input
       type="file"
@@ -66,38 +70,30 @@ console.log("TOKEN:", token);
     />
   </label>
 
-  {/* PREVIEW */}
-  {file && (
-    <img
-      src={URL.createObjectURL(file)}
-      alt="preview"
-      className="w-16 h-16 object-cover rounded-lg"
-    />
-  )}
-
-  {/* TITLE */}
   <input
     placeholder="Title"
     value={title}
     onChange={(e) => setTitle(e.target.value)}
-    className="border p-2 rounded-lg flex-1"
+    className="border p-2 rounded-lg flex-1 w-full"
   />
 
-  {/* BUTTON */}
-  <button
-    onClick={handleUpload}
-    disabled={!file || !title}
-    className={`px-6 py-2 rounded-lg transition text-white
-      ${file && title ? "bg-black hover:bg-gray-800" : "bg-gray-400 cursor-not-allowed"}
-    `}
-  >
-    Upload
-  </button>
+<button
+  onClick={handleUpload}
+  disabled={!file || !title || !token}
+  className={`px-6 py-2 rounded-lg text-white
+    ${file && title && token
+      ? "bg-black hover:bg-gray-800"
+      : "bg-gray-400 cursor-not-allowed"}
+  `}
+>
+  Upload
+</button>
+
 </div>
 
     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
       {images.map((img) => (
-        <div key={img.id} className="bg-white p-2 rounded-xl shadow hover:shadow-xl transition">
+        <div key={img.id} className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition">
   <img
     src={img.image_url}
     className="w-full h-40 object-cover rounded"

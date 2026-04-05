@@ -45,8 +45,10 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-100 p-10">
-    <h2 className="text-4xl font-bold mb-2">Gallery</h2>
-    <p className="text-gray-500 mb-8">Explore artworks from artists</p>
+    <h2 className="text-4xl font-bold mb-2">Dashboard</h2>
+    <p className="text-gray-500 mb-6">
+      Manage your artworks
+    </p>
       {/* ❌ EMPTY STATE */}
       {images.length === 0 ? (
         <div className="text-center text-gray-500 mt-20">
@@ -57,8 +59,7 @@ export default function Home() {
         </div>
       ) : (
         /* ✅ IMAGE GRID */
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {images.map((img) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center">          {images.map((img) => (
             <div
               key={img.id}
               className="bg-white rounded-2xl overflow-hidden shadow-md border border-gray-100 
@@ -71,7 +72,7 @@ hover:shadow-2xl transition duration-300 hover:-translate-y-2 hover:scale-[1.02]
   onError={(e) => {
     e.target.src = "https://via.placeholder.com/300";
   }}
-  className="w-full h-52 object-cover transition duration-300 group-hover:scale-110"  onClick={() => setSelectedImage(img)}
+  className="w-full h-40 object-cover rounded transition duration-300 hover:scale-105"
 />
 
   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition duration-300 flex items-center justify-center">
