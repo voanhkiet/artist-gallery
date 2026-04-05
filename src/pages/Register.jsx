@@ -5,39 +5,51 @@ export default function Register() {
   const [form, setForm] = useState({
     username: "",
     email: "",
-    password: ""
+    password: "",
   });
 
-  const handleSubmit = async () => {
-    await register(form);
-    alert("Registered!");
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // 🚨 VERY IMPORTANT
+
+    try {
+      const res = await register(form);
+      alert("Register success ✅");
+      console.log(res);
+    } catch (err) {
+      console.error(err);
+      alert("Register failed ❌");
+    }
   };
 
   return (
-   <div className="flex justify-center items-center min-h-screen bg-gray-100">
-  <div className="bg-white p-10 rounded-2xl shadow-xl w-96">
-    <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
+    <form onSubmit={handleSubmit} className="bg-white p-6 rounded-xl shadow">
+      
+      <input
+        placeholder="Username"
+        value={form.username}
+        onChange={(e) =>
+          setForm({ ...form, username: e.target.value })
+        }
+      />
 
-    <input
-      className="w-full border p-3 mb-4 rounded-lg"
-      placeholder="Username"
-    />
+      <input
+        placeholder="Email"
+        value={form.email}
+        onChange={(e) =>
+          setForm({ ...form, email: e.target.value })
+        }
+      />
 
-    <input
-      className="w-full border p-3 mb-4 rounded-lg"
-      placeholder="Email"
-    />
+      <input
+        type="password"
+        placeholder="Password"
+        value={form.password}
+        onChange={(e) =>
+          setForm({ ...form, password: e.target.value })
+        }
+      />
 
-    <input
-      className="w-full border p-3 mb-4 rounded-lg"
-      type="password"
-      placeholder="Password"
-    />
-
-    <button className="w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition">
-      Register
-    </button>
-  </div>
-</div>
+      <button type="submit">Register</button>
+    </form>
   );
 }
