@@ -17,12 +17,27 @@ export default function Dashboard() {
   }, []);
 
   const handleUpload = async () => {
-    const formData = new FormData();
-    formData.append("image", file);
-    formData.append("title", title);
+    const handleUpload = async () => {
+  if (!file || !title) {
+    alert("Please select file and enter title");
+    return;
+  }
 
+  const formData = new FormData();
+  formData.append("image", file);
+  formData.append("title", title);
+
+  try {
     await uploadImage(formData, token);
+    alert("Upload success ✅");
+    setFile(null);
+    setTitle("");
     loadImages();
+  } catch (err) {
+    console.error(err);
+    alert("Upload failed ❌");
+  }
+};
   };
 
   const handleDelete = async (id) => {
@@ -37,16 +52,18 @@ export default function Dashboard() {
     <div className="bg-white p-6 rounded-2xl shadow mb-8 flex gap-4 items-center">
       <input
   type="file"
-  className="border p-2 rounded-lg"
   onChange={(e) => setFile(e.target.files[0])}
 />
 
 <input
-  className="border p-2 rounded-lg"
   placeholder="Title"
   value={title}
   onChange={(e) => setTitle(e.target.value)}
 />
+
+<button onClick={handleUpload}>
+  Upload
+</button>
 
 <button
   onClick={handleUpload}
