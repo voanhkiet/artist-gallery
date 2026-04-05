@@ -9,7 +9,7 @@ export const getImages = async () => {
 
 // LOGIN
 export const login = async (data) => {
-  const res = await fetch(`${API}/login`, {
+  const res = await fetch(`${API}/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -25,7 +25,7 @@ export const login = async (data) => {
 
 // REGISTER
 export const register = async (data) => {
-  const res = await fetch(`${API}/register`, {
+  const res = await fetch(`${API}/auth/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
