@@ -26,8 +26,13 @@ export default function Login() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      
+  <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <form
+      onSubmit={handleSubmit}
+      className="bg-white p-8 rounded-2xl shadow w-full max-w-md space-y-5"
+    >
+      <h2 className="text-2xl font-bold text-center">Login</h2>
+
       <input
         type="email"
         placeholder="Email"
@@ -35,6 +40,7 @@ export default function Login() {
         onChange={(e) =>
           setForm({ ...form, email: e.target.value })
         }
+        className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
       />
 
       <input
@@ -44,12 +50,23 @@ export default function Login() {
         onChange={(e) =>
           setForm({ ...form, password: e.target.value })
         }
+        className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
       />
 
-      <button type="submit">
+      <button
+        type="submit"
+        className="w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition"
+      >
         Login
       </button>
 
+      <p className="text-sm text-center text-gray-500">
+        Don’t have an account?{" "}
+        <a href="/register" className="text-blue-500">
+          Register
+        </a>
+      </p>
     </form>
-  );
+  </div>
+);
 }

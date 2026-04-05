@@ -45,8 +45,8 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-100 p-10">
-      <h2 className="text-4xl font-bold mb-8">🎨 Gallery</h2>
-
+    <h2 className="text-4xl font-bold mb-2">Gallery</h2>
+    <p className="text-gray-500 mb-8">Explore artworks from artists</p>
       {/* ❌ EMPTY STATE */}
       {images.length === 0 ? (
         <div className="text-center text-gray-500 mt-20">
@@ -61,9 +61,8 @@ export default function Home() {
           {images.map((img) => (
             <div
               key={img.id}
-              className="bg-white rounded-2xl overflow-hidden shadow-md 
-hover:shadow-2xl transition duration-300 
-hover:-translate-y-2 hover:scale-[1.02] cursor-pointer"
+              className="bg-white rounded-2xl overflow-hidden shadow-md border border-gray-100 
+hover:shadow-2xl transition duration-300 hover:-translate-y-2 hover:scale-[1.02] cursor-pointer"
             >
 <div className="relative group">
   <img
@@ -72,21 +71,17 @@ hover:-translate-y-2 hover:scale-[1.02] cursor-pointer"
   onError={(e) => {
     e.target.src = "https://via.placeholder.com/300";
   }}
-  className="w-full h-52 object-cover cursor-pointer"
-  onClick={() => setSelectedImage(img)}
+  className="w-full h-52 object-cover transition duration-300 group-hover:scale-110"  onClick={() => setSelectedImage(img)}
 />
 
-  <div className="absolute inset-0 bg-black bg-opacity-0 
-  group-hover:bg-opacity-40 transition flex items-center justify-center">
-    
-    <span className="text-white opacity-0 group-hover:opacity-100 transition text-lg">
-      View
+  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition duration-300 flex items-center justify-center">
+    <span className="text-white text-sm tracking-wide opacity-0 group-hover:opacity-100 transition">
+      View Artwork
     </span>
-
   </div>
 </div>
 
-              <div className="p-4">
+              <div className="p-4 space-y-1">
                 <h3 className="text-lg font-semibold">
                   {img.title}
                 </h3>
@@ -98,9 +93,8 @@ hover:-translate-y-2 hover:scale-[1.02] cursor-pointer"
 
       {selectedImage && (
  <div
-  className="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm flex justify-center items-center z-50 
-  animate-[fadeIn_0.3s_ease]"
-  onClick={() => setSelectedImage(null)}   // ✅ ADD THIS BACK
+  className="fixed inset-0 bg-black/80 backdrop-blur-md flex justify-center items-center z-50"
+  onClick={() => setSelectedImage(null)}
 >
     <div className="relative">
  <img
@@ -117,7 +111,7 @@ hover:-translate-y-2 hover:scale-[1.02] cursor-pointer"
 >
   ✖
 </div>
-<div className="absolute bottom-3 left-3 text-white bg-black bg-opacity-50 px-3 py-1 rounded">
+<div className="absolute bottom-4 left-4 text-white bg-black/60 px-4 py-2 rounded-lg text-sm">
   {selectedImage.title}
 </div>
     </div>

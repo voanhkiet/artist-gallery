@@ -21,23 +21,32 @@ export default function Register() {
     }
   };
 
-  return (
-    <form onSubmit={handleSubmit} className="bg-white p-6 rounded-xl shadow">
-      
+ return (
+  <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <form
+      onSubmit={handleSubmit}
+      className="bg-white p-8 rounded-2xl shadow w-full max-w-md space-y-5"
+    >
+      <h2 className="text-2xl font-bold text-center">Register</h2>
+
       <input
+        type="text"
         placeholder="Username"
         value={form.username}
         onChange={(e) =>
           setForm({ ...form, username: e.target.value })
         }
+        className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
       />
 
       <input
+        type="email"
         placeholder="Email"
         value={form.email}
         onChange={(e) =>
           setForm({ ...form, email: e.target.value })
         }
+        className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
       />
 
       <input
@@ -47,9 +56,23 @@ export default function Register() {
         onChange={(e) =>
           setForm({ ...form, password: e.target.value })
         }
+        className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
       />
 
-      <button type="submit">Register</button>
+      <button
+        type="submit"
+        className="w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition"
+      >
+        Register
+      </button>
+
+      <p className="text-sm text-center text-gray-500">
+        Already have an account?{" "}
+        <a href="/login" className="text-blue-500">
+          Login
+        </a>
+      </p>
     </form>
-  );
+  </div>
+);
 }
