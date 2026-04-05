@@ -12,9 +12,13 @@ export default function Dashboard() {
     getImages().then(setImages);
   };
 
-  useEffect(() => {
+ useEffect(() => {
+  if (!token) {
+    navigate("/login"); // 🔥 redirect immediately
+  } else {
     loadImages();
-  }, []);
+  }
+}, [token]);
 
   const handleUpload = async () => {
   
