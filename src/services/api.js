@@ -54,3 +54,17 @@ export const uploadImage = async (formData, token) => {
 
   return result;
 };
+
+export const deleteImage = async (id, token) => {
+  const res = await fetch(`${API}/images/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const result = await res.json();
+  if (!res.ok) throw new Error(result.message || "Delete failed");
+
+  return result;
+};
