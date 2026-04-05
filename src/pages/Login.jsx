@@ -1,38 +1,55 @@
 import { useState } from "react";
 import { login } from "../services/api";
-import { useNavigate } from "react-router-dom";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
 
-  const handleLogin = async () => {
-    const data = await login(email, password);
-    localStorage.setItem("token", data.token);
-    navigate("/dashboard");
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // 🚨 MUST HAVE
+
+    try {
+      const res = await login(form);
+
+      console.log(res); // debug
+      localStorage.setItem("token", res.token);
+
+      alert("Login success ✅");
+
+      window.location.href = "/dashboard";
+    } catch (err) {
+      console.error(err);
+      alert("Login failed ❌");
+    }
   };
 
   return (
-  <div className="flex justify-center items-center min-h-screen bg-gray-100">
-    <div className="bg-white p-10 rounded-2xl shadow-xl w-96">
-      <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
-
+    <form onSubmit={handleSubmit} className="space-y-4">
+      
       <input
-        className="w-full border p-3 mb-4 rounded-lg"
+        type="email"
         placeholder="Email"
+        value={form.email}
+        onChange={(e) =>
+          setForm({ ...form, email: e.target.value })
+        }
       />
 
       <input
-        className="w-full border p-3 mb-4 rounded-lg"
         type="password"
         placeholder="Password"
+        value={form.password}
+        onChange={(e) =>
+          setForm({ ...form, password: e.target.value })
+        }
       />
 
-      <button className="w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition">
+      <button type="submit">
         Login
       </button>
-    </div>
-  </div>
-);
+
+    </form>
+  );
 }
