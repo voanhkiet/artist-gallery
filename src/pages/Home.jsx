@@ -72,7 +72,8 @@ hover:shadow-2xl transition duration-300 hover:-translate-y-2 hover:scale-[1.02]
   onError={(e) => {
     e.target.src = "https://via.placeholder.com/300";
   }}
-  className="w-full h-40 object-cover rounded transition duration-300 hover:scale-105"
+  className="w-full h-40 object-cover rounded cursor-pointer"
+  onClick={() => setSelectedImage(img)}   // ✅ IMPORTANT
 />
 
   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition duration-300 flex items-center justify-center">
@@ -93,28 +94,28 @@ hover:shadow-2xl transition duration-300 hover:-translate-y-2 hover:scale-[1.02]
       )}
 
       {selectedImage && (
- <div
-  className="fixed inset-0 bg-black/80 backdrop-blur-md flex justify-center items-center z-50"
-  onClick={() => setSelectedImage(null)}
->
+  <div
+    className="fixed inset-0 bg-black/80 backdrop-blur-md flex justify-center items-center z-50"
+    onClick={() => setSelectedImage(null)}
+  >
     <div className="relative">
- <img
-      src={selectedImage.image_url}
-      alt={selectedImage.title || "Artwork"}
-      className="max-w-[90%] max-h-[90%] rounded-lg shadow-lg 
-      transform scale-95 animate-[zoomIn_0.3s_ease_forwards]"
-       onClick={(e) => e.stopPropagation()} 
-    />
+      <img
+        src={selectedImage.image_url}
+        alt={selectedImage.title || "Artwork"}
+        className="max-w-[90%] max-h-[90%] rounded-lg shadow-lg"
+        onClick={(e) => e.stopPropagation()} // ✅ prevent close when clicking image
+      />
 
       <div
-  className="absolute top-3 right-3 text-white text-xl cursor-pointer"
-  onClick={() => setSelectedImage(null)}
->
-  ✖
-</div>
-<div className="absolute bottom-4 left-4 text-white bg-black/60 px-4 py-2 rounded-lg text-sm">
-  {selectedImage.title}
-</div>
+        className="absolute top-3 right-3 text-white text-xl cursor-pointer"
+        onClick={() => setSelectedImage(null)}
+      >
+        ✖
+      </div>
+
+      <div className="absolute bottom-4 left-4 text-white bg-black/60 px-4 py-2 rounded-lg text-sm">
+        {selectedImage.title}
+      </div>
     </div>
   </div>
 )}
