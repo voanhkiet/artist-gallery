@@ -73,7 +73,10 @@ hover:shadow-2xl transition duration-300 hover:-translate-y-2 hover:scale-[1.02]
     e.target.src = "https://via.placeholder.com/300";
   }}
   className="w-full h-40 object-cover rounded cursor-pointer"
-  onClick={() => setSelectedImage(img)}   // ✅ IMPORTANT
+  onClick={() => {
+  console.log("CLICKED IMAGE");
+  setSelectedImage(img);
+}}   // ✅ IMPORTANT
 />
 
   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition duration-300 flex items-center justify-center">
