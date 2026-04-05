@@ -17,7 +17,6 @@ export default function Dashboard() {
   }, []);
 
   const handleUpload = async () => {
-    const handleUpload = async () => {
   if (!file || !title) {
     alert("Please select file and enter title");
     return;
@@ -38,7 +37,6 @@ export default function Dashboard() {
     alert("Upload failed ❌");
   }
 };
-  };
 
   const handleDelete = async (id) => {
     await deleteImage(id, token);
