@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { getImages } from "../services/api";
 
 export default function Home() {
+
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(null);
+
 
   useEffect(() => {
     getImages().then((data) => {
@@ -13,17 +15,28 @@ export default function Home() {
     });
   }, []);
 
-  useEffect(() => {
-    const handleKey = (e) => {
-      if (e.key === "Escape") {
-        setSelectedImage(null);
-      }
-    };
+useEffect(() => {
+  const handleKey = (e) => {
+    if (!selectedImage) return;
 
-    window.addEventListener("keydown", handleKey);
-    return () => window.removeEventListener("keydown", handleKey);
-  }, []);
+    if (e.key === "Escape") {
+      setSelectedImage(null);
+    }
 
+    if (e.key === "ArrowRight") {
+      const i = images.findIndex(img => img.id === selectedImage.id);
+      setSelectedImage(images[(i + 1) % images.length]);
+    }
+
+    if (e.key === "ArrowLeft") {
+      const i = images.findIndex(img => img.id === selectedImage.id);
+      setSelectedImage(images[(i - 1 + images.length) % images.length]);
+    }
+  };
+
+  window.addEventListener("keydown", handleKey);
+  return () => window.removeEventListener("keydown", handleKey);
+}, [selectedImage, images]);
   useEffect(() => {
   if (selectedImage) {
     document.body.style.overflow = "hidden";
@@ -99,26 +112,57 @@ hover:shadow-2xl transition duration-300 hover:-translate-y-2 hover:scale-[1.02]
       {selectedImage && (
   <div
     className="fixed inset-0 bg-black/80 backdrop-blur-md flex justify-center items-center z-50"
+    style={{ animation: "fadeIn 0.25s ease" }}
     onClick={() => setSelectedImage(null)}
   >
-    <div className="relative">
+    <div
+      className="relative flex items-center"
+      onClick={(e) => e.stopPropagation()}
+    >
+
+      {/* ⬅️ LEFT ARROW */}
+      <div
+        className="absolute left-4 text-white text-4xl cursor-pointer select-none"
+        onClick={() => {
+          const i = images.findIndex(img => img.id === selectedImage.id);
+          setSelectedImage(images[(i - 1 + images.length) % images.length]);
+        }}
+      >
+        ‹
+      </div>
+
+      {/* IMAGE */}
       <img
         src={selectedImage.image_url}
-        alt={selectedImage.title || "Artwork"}
-  className="max-w-[90%] max-h-[90%] rounded-lg shadow-lg animate-[zoomIn_0.2s_ease]"
-        onClick={(e) => e.stopPropagation()} // ✅ prevent close when clicking image
+        alt={selectedImage.title}
+        className="max-w-[90%] max-h-[90%] rounded-lg shadow-lg"
+        style={{ animation: "zoomIn 0.25s ease" }}
       />
 
+      {/* ➡️ RIGHT ARROW */}
       <div
-        className="absolute top-3 right-3 text-white text-xl cursor-pointer"
+        className="absolute right-4 text-white text-4xl cursor-pointer select-none"
+        onClick={() => {
+          const i = images.findIndex(img => img.id === selectedImage.id);
+          setSelectedImage(images[(i + 1) % images.length]);
+        }}
+      >
+        ›
+      </div>
+
+      {/* ❌ CLOSE */}
+      <div
+        className="absolute top-4 right-4 text-white text-2xl cursor-pointer bg-black/50 px-3 py-1 rounded-full"
         onClick={() => setSelectedImage(null)}
       >
         ✖
       </div>
 
+      {/* 📝 TITLE */}
       <div className="absolute bottom-4 left-4 text-white bg-black/60 px-4 py-2 rounded-lg text-sm">
         {selectedImage.title}
       </div>
+
     </div>
   </div>
 )}
