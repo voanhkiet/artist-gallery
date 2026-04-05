@@ -1,27 +1,51 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-function Navbar({ token, setToken }) {
+export default function Navbar({ token, setToken }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     setToken(null);
-    navigate("/login"); // redirect
+    navigate("/login");
   };
 
   return (
-    <nav className="bg-black text-white p-4 flex justify-between">
-      <h1>My App</h1>
+    <nav className="bg-black text-white px-10 py-5 flex justify-between items-center shadow-lg">
+      
+      {/* LEFT */}
+      <h1 className="text-2xl font-bold">🎨 Art Gallery</h1>
 
-      {token ? (
-        <button onClick={handleLogout}>
-          Logout
-        </button>
-      ) : (
-        <span>Not logged in</span>
-      )}
+      {/* RIGHT */}
+      <div className="flex gap-8 text-lg items-center">
+        
+        <Link to="/" className="hover:text-gray-400">
+          Gallery
+        </Link>
+
+        {!token ? (
+          <>
+            <Link to="/login" className="hover:text-gray-400">
+              Login
+            </Link>
+            <Link to="/register" className="hover:text-gray-400">
+              Register
+            </Link>
+          </>
+        ) : (
+          <>
+            <Link to="/dashboard" className="hover:text-gray-400">
+              Dashboard
+            </Link>
+
+            <button
+              onClick={handleLogout}
+              className="hover:text-red-400"
+            >
+              Logout
+            </button>
+          </>
+        )}
+      </div>
     </nav>
   );
 }
-
-export default Navbar;
