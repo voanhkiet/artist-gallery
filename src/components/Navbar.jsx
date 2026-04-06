@@ -71,11 +71,11 @@ export default function Navbar({ token, setToken }) {
 
       {/* 📱 MOBILE MENU */}
       <div
-  className={`fixed inset-0 bg-black/50 backdrop-blur-sm flex justify-center items-start z-50 transition-all duration-300 ${
+  className={`fixed inset-0 bg-black/50 backdrop-blur-sm flex justify-center items-start z-50 pt-6 transition-all duration-300 ${
     open ? "opacity-100" : "opacity-0 pointer-events-none"
   }`}
 >
-<div className="w-full max-w-md bg-black text-white rounded-b-2xl shadow-2xl animate-slideDown">
+<div className="w-full max-w-md bg-black text-white rounded-b-2xl shadow-2xl mt-4 max-h-[70vh] overflow-auto animate-slideDown">
 
         {/* HEADER */}
         <div className="flex justify-between items-center px-6 py-5 border-b border-gray-800">
@@ -87,12 +87,11 @@ export default function Navbar({ token, setToken }) {
         </div>
 
         {/* MENU ITEMS */}
-        <div className="flex flex-col px-6 mt-6 text-lg">
+        <div className="flex flex-col px-6 py-4 mt-6 text-lg">
 
           <Link
             to="/"
-            className="py-4 border-b border-gray-800 w-full"
-            onClick={() => setOpen(false)}
+            className="py-4 border-b border-gray-800 w-full hover:text-gray-400 transition"            onClick={() => setOpen(false)}
           >
             Gallery
           </Link>
