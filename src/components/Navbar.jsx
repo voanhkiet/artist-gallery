@@ -72,69 +72,77 @@ export default function Navbar({ token, setToken }) {
 )}   
 
       {/* 📱 MOBILE MENU */}
+{/* 📱 MOBILE MENU */}
 <div
-  className={`fixed top-0 left-0 w-full bg-black text-white z-50 transform transition-transform duration-300 ${
-    open ? "translate-y-0" : "-translate-y-full"
+  className={`fixed inset-0 flex justify-center items-start pt-6 z-50 transition-all duration-300 ${
+    open ? "opacity-100" : "opacity-0 pointer-events-none"
   }`}
-  style={{ maxHeight: "70vh" }}
 >
+  {/* OVERLAY */}
+  <div
+    className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+    onClick={() => setOpen(false)}
+  />
 
-  {/* HEADER */}
-  <div className="flex justify-between items-center px-6 py-5 border-b border-gray-800">
-    <h1 className="text-xl font-bold">🎨 Art Gallery</h1>
+  {/* MENU PANEL */}
+  <div className="relative w-[90%] max-w-md bg-black text-white rounded-2xl shadow-2xl overflow-hidden animate-slideDown">
 
-    <button onClick={() => setOpen(false)} className="text-2xl">
-      ✖
-    </button>
-  </div>
+    {/* HEADER */}
+    <div className="flex justify-between items-center px-6 py-5 border-b border-gray-800">
+      <h1 className="text-xl font-bold">🎨 Art Gallery</h1>
+      <button onClick={() => setOpen(false)} className="text-2xl">
+        ✖
+      </button>
+    </div>
 
-  {/* MENU ITEMS */}
-  <div className="flex flex-col px-6 text-lg">
+    {/* ITEMS */}
+    <div className="flex flex-col px-6 text-lg">
 
-    <Link
-      to="/"
-      className="py-4 border-b border-gray-800 hover:text-gray-400 transition"
-      onClick={() => setOpen(false)}
-    >
-      Gallery
-    </Link>
+      <Link
+        to="/"
+        className="py-4 border-b border-gray-800 hover:text-gray-400"
+        onClick={() => setOpen(false)}
+      >
+        Gallery
+      </Link>
 
-    {!token ? (
-      <>
-        <Link
-          to="/login"
-          className="py-4 border-b border-gray-800 hover:text-gray-400 transition"
-          onClick={() => setOpen(false)}
-        >
-          Login
-        </Link>
+      {!token ? (
+        <>
+          <Link
+            to="/login"
+            className="py-4 border-b border-gray-800 hover:text-gray-400"
+            onClick={() => setOpen(false)}
+          >
+            Login
+          </Link>
 
-        <Link
-          to="/register"
-          className="py-4 hover:text-gray-400 transition"
-          onClick={() => setOpen(false)}
-        >
-          Register
-        </Link>
-      </>
-    ) : (
-      <>
-        <Link
-          to="/dashboard"
-          className="py-4 border-b border-gray-800 hover:text-gray-400 transition"
-          onClick={() => setOpen(false)}
-        >
-          Dashboard
-        </Link>
+          <Link
+            to="/register"
+            className="py-4 hover:text-gray-400"
+            onClick={() => setOpen(false)}
+          >
+            Register
+          </Link>
+        </>
+      ) : (
+        <>
+          <Link
+            to="/dashboard"
+            className="py-4 border-b border-gray-800 hover:text-gray-400"
+            onClick={() => setOpen(false)}
+          >
+            Dashboard
+          </Link>
 
-        <button
-          onClick={handleLogout}
-          className="py-4 text-left text-red-400 hover:text-red-500 transition"
-        >
-          Logout
-        </button>
-      </>
-    )}
+          <button
+            onClick={handleLogout}
+            className="py-4 text-left text-red-400"
+          >
+            Logout
+          </button>
+        </>
+      )}
+    </div>
   </div>
 </div>
     </nav>
