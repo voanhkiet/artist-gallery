@@ -74,7 +74,7 @@ export default function Navbar({ token, setToken }) {
       {/* 📱 MOBILE MENU */}
 {/* 📱 MOBILE MENU */}
 <div
-  className={`fixed inset-0 flex justify-center items-start pt-6 z-50 transition-all duration-300 ${
+  className={`fixed inset-0 flex justify-center items-start pt-16 z-50 transition-all duration-300 ${
     open ? "opacity-100" : "opacity-0 pointer-events-none"
   }`}
 >
@@ -85,7 +85,7 @@ export default function Navbar({ token, setToken }) {
   />
 
   {/* MENU PANEL */}
-  <div className="relative w-[90%] max-w-md bg-black text-white rounded-2xl shadow-2xl overflow-hidden animate-slideDown">
+  <div className="relative w-[90%] md:w-[600px] max-w-md bg-black text-white rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.6)] overflow-hidden animate-slideDown">
 
     {/* HEADER */}
     <div className="flex justify-between items-center px-6 py-5 border-b border-gray-800">
