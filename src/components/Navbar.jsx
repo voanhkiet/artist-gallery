@@ -59,17 +59,28 @@ export default function Navbar({ token, setToken }) {
         </div>
       </div>
 
-      {/* 📱 MOBILE MENU */}
+     {/* 📱 MOBILE MENU */}
 <div
-  className={`md:hidden fixed top-[72px] left-0 w-full bg-black text-white z-50 transition-all duration-300 ${
-    open ? "max-h-96 py-6" : "max-h-0 overflow-hidden"
+  className={`fixed top-0 left-0 w-full h-screen bg-black text-white z-50 transition-all duration-300 ${
+    open ? "translate-y-0" : "-translate-y-full"
   }`}
 >
-  <div className="flex flex-col gap-4 text-lg items-start">
+
+  {/* 🔥 HEADER */}
+  <div className="flex justify-between items-center px-6 py-5 border-b border-gray-800">
+    <h1 className="text-xl font-bold">🎨 Art Gallery</h1>
+
+    <button onClick={() => setOpen(false)} className="text-2xl">
+      ✖
+    </button>
+  </div>
+
+  {/* 🔥 MENU ITEMS */}
+  <div className="flex flex-col px-6 mt-6 text-lg">
 
     <Link
       to="/"
-      className="py-2 border-b border-gray-700 w-full"
+      className="py-4 border-b border-gray-800 w-full"
       onClick={() => setOpen(false)}
     >
       Gallery
@@ -79,7 +90,7 @@ export default function Navbar({ token, setToken }) {
       <>
         <Link
           to="/login"
-          className="py-2 border-b border-gray-700 w-full"
+          className="py-4 border-b border-gray-800 w-full"
           onClick={() => setOpen(false)}
         >
           Login
@@ -87,7 +98,7 @@ export default function Navbar({ token, setToken }) {
 
         <Link
           to="/register"
-          className="py-2 w-full"
+          className="py-4 w-full"
           onClick={() => setOpen(false)}
         >
           Register
@@ -97,7 +108,7 @@ export default function Navbar({ token, setToken }) {
       <>
         <Link
           to="/dashboard"
-          className="py-2 border-b border-gray-700 w-full"
+          className="py-4 border-b border-gray-800 w-full"
           onClick={() => setOpen(false)}
         >
           Dashboard
@@ -109,7 +120,7 @@ export default function Navbar({ token, setToken }) {
             setToken(null);
             setOpen(false);
           }}
-          className="py-2 text-left w-full text-red-400"
+          className="py-4 text-left w-full text-red-400"
         >
           Logout
         </button>
