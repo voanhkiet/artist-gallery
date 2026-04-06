@@ -35,25 +35,43 @@ export default function Navbar({ token, setToken }) {
 
         {/* 💻 DESKTOP MENU */}
         <div className="hidden md:flex gap-8 text-lg items-center">
-          <Link
+<Link
   to="/"
-  className={`py-4 border-b border-gray-800 transition ${
+  className={`py-4 rounded-lg px-3 transition ${
     location.pathname === "/"
-      ? "text-white bg-white/10 rounded-lg px-3"
-      : "hover:text-gray-400"
+      ? "bg-white/10 text-white"
+      : "hover:bg-white/5 hover:text-gray-400"
   }`}
+  onClick={() => setOpen(false)}
 >
   Gallery
 </Link>
 
           {!token ? (
             <>
-              <Link to="/login" className="hover:text-gray-400">
-                Login
-              </Link>
-              <Link to="/register" className="hover:text-gray-400">
-                Register
-              </Link>
+<Link
+  to="/login"
+  className={`py-4 rounded-lg px-3 transition ${
+    location.pathname === "/login"
+      ? "bg-white/10 text-white"
+      : "hover:bg-white/5 hover:text-gray-400"
+  }`}
+  onClick={() => setOpen(false)}
+>
+  Login
+</Link>
+
+<Link
+  to="/register"
+  className={`py-4 rounded-lg px-3 transition ${
+    location.pathname === "/register"
+      ? "bg-white/10 text-white"
+      : "hover:bg-white/5 hover:text-gray-400"
+  }`}
+  onClick={() => setOpen(false)}
+>
+  Register
+</Link>
             </>
           ) : (
             <>
