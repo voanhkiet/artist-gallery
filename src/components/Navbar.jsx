@@ -123,11 +123,16 @@ export default function Navbar({ token, setToken }) {
     </div>
 
     {/* ITEMS */}
-<div className="flex flex-col px-6 text-lg space-y-1">
-      <Link
+<div className="flex flex-col gap-2 px-4 py-4 text-lg">
+        <Link
         to="/"
-className="py-4 hover:text-gray-400 hover:bg-white/5 rounded-lg px-3 active:scale-[0.98] transition"
->
+        onClick={() => setOpen(false)}
+
+className={`py-4 rounded-lg px-3 transition active:scale-[0.98] ${
+    location.pathname === "/"
+      ? "bg-white/10 text-white"
+      : "hover:bg-white/5 hover:text-gray-400"
+  }`}>
         Gallery
       </Link>
 
@@ -135,13 +140,23 @@ className="py-4 hover:text-gray-400 hover:bg-white/5 rounded-lg px-3 active:scal
         <>
           <Link
             to="/login"
-className="py-4 hover:text-gray-400 hover:bg-white/5 rounded-lg px-3 active:scale-[0.98] transition"          >
+            onClick={() => setOpen(false)}
+className={`py-4 rounded-lg px-3 transition active:scale-[0.98] ${
+    location.pathname === "/"
+      ? "bg-white/10 text-white"
+      : "hover:bg-white/5 hover:text-gray-400"
+  }`}>
             Login
           </Link>
 
           <Link
             to="/register"
-className="py-4 hover:text-gray-400 hover:bg-white/5 rounded-lg px-3 active:scale-[0.98] transition"          >
+            onClick={() => setOpen(false)}
+className={`py-4 rounded-lg px-3 transition active:scale-[0.98] ${
+    location.pathname === "/"
+      ? "bg-white/10 text-white"
+      : "hover:bg-white/5 hover:text-gray-400"
+  }`}>
             Register
           </Link>
         </>
@@ -149,7 +164,12 @@ className="py-4 hover:text-gray-400 hover:bg-white/5 rounded-lg px-3 active:scal
         <>
           <Link
             to="/dashboard"
-className="py-4 hover:text-gray-400 hover:bg-white/5 rounded-lg px-3 active:scale-[0.98] transition"          >
+            onClick={() => setOpen(false)}
+className={`py-4 rounded-lg px-3 transition active:scale-[0.98] ${
+    location.pathname === "/"
+      ? "bg-white/10 text-white"
+      : "hover:bg-white/5 hover:text-gray-400"
+  }`}>
             Dashboard
           </Link>
 
