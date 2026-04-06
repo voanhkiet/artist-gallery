@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import GalleryModal from "../components/GalleryModal";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -97,68 +98,11 @@ export default function Gallery() {
         </div>
       )}
 
-      {/* 🔥 MODAL */}
-      {selectedImage && (
-        <div
-          className="fixed inset-0 bg-black/80 backdrop-blur-md flex justify-center items-center z-50"
-          onClick={() => setSelectedImage(null)}
-        >
-          <div
-            className="relative flex items-center"
-            onClick={(e) => e.stopPropagation()}
-          >
-
-            {/* ⬅️ LEFT */}
-            <div
-              className="absolute left-6 md:left-10 text-white text-5xl cursor-pointer 
-              bg-black/40 hover:bg-black/70 w-12 h-12 flex items-center justify-center 
-              rounded-full transition"
-              onClick={() => {
-                const i = artworks.findIndex(a => a.id === selectedImage.id);
-                setSelectedImage(artworks[(i - 1 + artworks.length) % artworks.length]);
-              }}
-            >
-              ‹
-            </div>
-
-            {/* IMAGE */}
-            <img
-              src={`${API_URL}/uploads/${selectedImage.image}`}
-              alt={selectedImage.title}
-              className="max-w-[90%] max-h-[90%] rounded-lg shadow-lg"
-            />
-
-            {/* ➡️ RIGHT */}
-            <div
-              className="absolute right-6 md:right-10 text-white text-5xl cursor-pointer 
-              bg-black/40 hover:bg-black/70 w-12 h-12 flex items-center justify-center 
-              rounded-full transition"
-              onClick={() => {
-                const i = artworks.findIndex(a => a.id === selectedImage.id);
-                setSelectedImage(artworks[(i + 1) % artworks.length]);
-              }}
-            >
-              ›
-            </div>
-
-            {/* ❌ CLOSE */}
-            <div
-              className="absolute top-6 right-6 text-white text-xl cursor-pointer 
-              bg-black/50 hover:bg-black/80 px-4 py-2 rounded-full transition"
-              onClick={() => setSelectedImage(null)}
-            >
-              ✖
-            </div>
-
-            {/* 📝 TITLE */}
-            <div className="absolute bottom-0 left-0 w-full p-4 
-            bg-gradient-to-t from-black/80 to-transparent text-white text-sm">
-              {selectedImage.title}
-            </div>
-
-          </div>
-        </div>
-      )}
+      <GalleryModal 
+        images={artworks}
+        selected={selectedImage}
+        setSelected={setSelectedImage}
+      />
     </div>
   );
 }
