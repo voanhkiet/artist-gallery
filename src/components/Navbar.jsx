@@ -1,9 +1,11 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 
 export default function Navbar({ token, setToken }) {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+
+  const location = useLocation();
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -33,9 +35,16 @@ export default function Navbar({ token, setToken }) {
 
         {/* 💻 DESKTOP MENU */}
         <div className="hidden md:flex gap-8 text-lg items-center">
-          <Link to="/" className="hover:text-gray-400">
-            Gallery
-          </Link>
+          <Link
+  to="/"
+  className={`py-4 border-b border-gray-800 transition ${
+    location.pathname === "/"
+      ? "text-white bg-white/10 rounded-lg px-3"
+      : "hover:text-gray-400"
+  }`}
+>
+  Gallery
+</Link>
 
           {!token ? (
             <>
@@ -100,7 +109,7 @@ export default function Navbar({ token, setToken }) {
 
       <Link
         to="/"
-className="py-4 border-b border-gray-800 hover:text-gray-400 transition focus:outline-none"      >
+className="py-4 border-b border-gray-800 hover:text-gray-400 hover:bg-white/5 rounded-lg px-3 active:scale-[0.98] transition"      >
         Gallery
       </Link>
 
@@ -108,16 +117,14 @@ className="py-4 border-b border-gray-800 hover:text-gray-400 transition focus:ou
         <>
           <Link
             to="/login"
-            className="py-4 border-b border-gray-800 hover:text-gray-400"
-            onClick={() => setOpen(false)}
+className="py-4 border-b border-gray-800 hover:text-gray-400 hover:bg-white/5 rounded-lg px-3 active:scale-[0.98] transition"            onClick={() => setOpen(false)}
           >
             Login
           </Link>
 
           <Link
             to="/register"
-            className="py-4 hover:text-gray-400"
-            onClick={() => setOpen(false)}
+className="py-4 border-b border-gray-800 hover:text-gray-400 hover:bg-white/5 rounded-lg px-3 active:scale-[0.98] transition"            onClick={() => setOpen(false)}
           >
             Register
           </Link>
@@ -126,16 +133,14 @@ className="py-4 border-b border-gray-800 hover:text-gray-400 transition focus:ou
         <>
           <Link
             to="/dashboard"
-            className="py-4 border-b border-gray-800 hover:text-gray-400"
-            onClick={() => setOpen(false)}
+className="py-4 border-b border-gray-800 hover:text-gray-400 hover:bg-white/5 rounded-lg px-3 active:scale-[0.98] transition"            onClick={() => setOpen(false)}
           >
             Dashboard
           </Link>
 
           <button
             onClick={handleLogout}
-            className="py-4 text-left text-red-400"
-          >
+className="py-4 border-b border-gray-800 hover:text-gray-400 hover:bg-white/5 rounded-lg px-3 active:scale-[0.98] transition"          >
             Logout
           </button>
         </>
