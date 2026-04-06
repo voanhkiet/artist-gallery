@@ -22,12 +22,12 @@ export default function Navbar({ token, setToken }) {
         </h1>
 
         {/* ☰ Mobile button */}
-        <button
-          className="md:hidden text-2xl"
-          onClick={() => setOpen(!open)}
-        >
-          ☰
-        </button>
+<button
+  className="md:hidden text-2xl"
+  onClick={() => setOpen(!open)}
+>
+  {open ? "✖" : "☰"}
+</button>
 
         {/* DESKTOP MENU */}
         <div className="hidden md:flex gap-8 text-lg items-center">
@@ -62,40 +62,63 @@ export default function Navbar({ token, setToken }) {
       </div>
 
       {/* 📱 MOBILE MENU */}
-      {open && (
-        <div className="flex flex-col gap-4 mt-4 md:hidden text-lg">
-          <Link to="/" onClick={() => setOpen(false)}>
-            Gallery
-          </Link>
+      <div
+  className={`md:hidden overflow-hidden transition-all duration-300 ${
+    open ? "max-h-60 mt-4" : "max-h-0"
+  }`}
+>
+  <div className="flex flex-col gap-4 text-lg items-start">
 
-          {!token ? (
-            <>
-              <Link to="/login" onClick={() => setOpen(false)}>
-                Login
-              </Link>
-              <Link to="/register" onClick={() => setOpen(false)}>
-                Register
-              </Link>
-            </>
-          ) : (
-            <>
-              <Link to="/dashboard" onClick={() => setOpen(false)}>
-                Dashboard
-              </Link>
+    <Link
+      to="/"
+      className="py-2 border-b border-gray-700 w-full"
+      onClick={() => setOpen(false)}
+    >
+      Gallery
+    </Link>
 
-              <button
-                onClick={() => {
-                  handleLogout();
-                  setOpen(false);
-                }}
-                className="text-left text-red-400"
-              >
-                Logout
-              </button>
-            </>
-          )}
-        </div>
-      )}
+    {!token ? (
+      <>
+        <Link
+          to="/login"
+          className="py-2 border-b border-gray-700 w-full"
+          onClick={() => setOpen(false)}
+        >
+          Login
+        </Link>
+
+        <Link
+          to="/register"
+          className="py-2 w-full"
+          onClick={() => setOpen(false)}
+        >
+          Register
+        </Link>
+      </>
+    ) : (
+      <>
+        <Link
+          to="/dashboard"
+          className="py-2 border-b border-gray-700 w-full"
+          onClick={() => setOpen(false)}
+        >
+          Dashboard
+        </Link>
+
+        <button
+          onClick={() => {
+            localStorage.removeItem("token");
+            setToken(null);
+            setOpen(false);
+          }}
+          className="py-2 text-left w-full text-red-400"
+        >
+          Logout
+        </button>
+      </>
+    )}
+  </div>
+</div>
     </nav>
   );
 }
