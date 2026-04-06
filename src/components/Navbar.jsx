@@ -128,11 +128,12 @@ export default function Navbar({ token, setToken }) {
         to="/"
         onClick={() => setOpen(false)}
 
-className={`py-4 rounded-lg px-3 transition active:scale-[0.98] ${
+className={`py-4 px-4 rounded-xl transition active:scale-[0.98] ${
     location.pathname === "/"
-      ? "bg-white/10 text-white"
-      : "hover:bg-white/5 hover:text-gray-400"
-  }`}>
+      ? "bg-white/15 text-white shadow-inner"
+      : "bg-white/5 hover:bg-white/10 text-gray-300"
+  }`}
+  >
         Gallery
       </Link>
 
@@ -141,10 +142,10 @@ className={`py-4 rounded-lg px-3 transition active:scale-[0.98] ${
           <Link
             to="/login"
             onClick={() => setOpen(false)}
-className={`py-4 rounded-lg px-3 transition active:scale-[0.98] ${
+className={`py-4 px-4 rounded-xl transition active:scale-[0.98] ${
     location.pathname === "/"
-      ? "bg-white/10 text-white"
-      : "hover:bg-white/5 hover:text-gray-400"
+      ? "bg-white/15 text-white shadow-inner"
+      : "bg-white/5 hover:bg-white/10 text-gray-300"
   }`}>
             Login
           </Link>
@@ -152,10 +153,10 @@ className={`py-4 rounded-lg px-3 transition active:scale-[0.98] ${
           <Link
             to="/register"
             onClick={() => setOpen(false)}
-className={`py-4 rounded-lg px-3 transition active:scale-[0.98] ${
+className={`py-4 px-4 rounded-xl transition active:scale-[0.98] ${
     location.pathname === "/"
-      ? "bg-white/10 text-white"
-      : "hover:bg-white/5 hover:text-gray-400"
+      ? "bg-white/15 text-white shadow-inner"
+      : "bg-white/5 hover:bg-white/10 text-gray-300"
   }`}>
             Register
           </Link>
@@ -165,10 +166,10 @@ className={`py-4 rounded-lg px-3 transition active:scale-[0.98] ${
           <Link
             to="/dashboard"
             onClick={() => setOpen(false)}
-className={`py-4 rounded-lg px-3 transition active:scale-[0.98] ${
+className={`py-4 px-4 rounded-xl transition active:scale-[0.98] ${
     location.pathname === "/"
-      ? "bg-white/10 text-white"
-      : "hover:bg-white/5 hover:text-gray-400"
+      ? "bg-white/15 text-white shadow-inner"
+      : "bg-white/5 hover:bg-white/10 text-gray-300"
   }`}>
             Dashboard
           </Link>
