@@ -66,7 +66,7 @@ export default function Navbar({ token, setToken }) {
     
  {open && (
   <div
-    className="fixed inset-0 bg-black/60 z-40"
+    className="fixed inset-0 bg-black/70 z-40"
     onClick={() => setOpen(false)}
   />
 )}   
@@ -85,7 +85,7 @@ export default function Navbar({ token, setToken }) {
   />
 
   {/* MENU PANEL */}
-  <div className="relative w-[90%] md:w-[600px] max-w-md bg-black text-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.8)] overflow-hidden animate-slideDown">
+  <div className="relative mt-2 w-[92%] md:w-[600px] max-w-md bg-black text-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.8)] overflow-hidden animate-slideDown">
 
     {/* HEADER */}
     <div className="flex justify-between items-center px-6 py-4 border-b border-gray-800">
@@ -100,7 +100,7 @@ export default function Navbar({ token, setToken }) {
 
       <Link
         to="/"
-        className="py-4 border-b border-gray-800 hover:text-gray-400 hover:translate-x-1 transition"        onClick={() => setOpen(false)}
+        className="py-4 border-b border-gray-800 ring-1 ring-white/5 hover:text-gray-400 hover:translate-x-1 transition"        onClick={() => setOpen(false)}
       >
         Gallery
       </Link>
