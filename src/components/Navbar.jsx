@@ -71,12 +71,11 @@ export default function Navbar({ token, setToken }) {
 
       {/* 📱 MOBILE MENU */}
       <div
-        className={`fixed top-0 left-0 w-full min-h-screen flex justify-center items-start bg-black text-white z-50 transform transition-transform duration-300 ${
-          open ? "translate-y-0" : "-translate-y-full"
-        }`}
-      >
-      <div className="w-full max-w-md bg-black rounded-b-2xl text-white">
-
+  className={`fixed inset-0 bg-black/50 backdrop-blur-sm flex justify-center items-start z-50 transition-all duration-300 ${
+    open ? "opacity-100" : "opacity-0 pointer-events-none"
+  }`}
+>
+<div className="w-full max-w-md bg-black text-white rounded-b-2xl shadow-2xl animate-slideDown">
 
         {/* HEADER */}
         <div className="flex justify-between items-center px-6 py-5 border-b border-gray-800">
