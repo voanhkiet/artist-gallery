@@ -100,8 +100,7 @@ export default function Navbar({ token, setToken }) {
 
       <Link
         to="/"
-        className="py-4 border-b border-gray-800 ring-1 ring-white/5 hover:text-gray-400 hover:translate-x-1 transition"        onClick={() => setOpen(false)}
-      >
+className="py-4 border-b border-gray-800 hover:text-gray-400 transition focus:outline-none"      >
         Gallery
       </Link>
 
