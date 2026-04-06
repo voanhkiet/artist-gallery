@@ -128,11 +128,11 @@ export default function Navbar({ token, setToken }) {
         to="/"
         onClick={() => setOpen(false)}
 
-className={`py-4 px-4 rounded-xl transition active:scale-[0.98] ${
-    location.pathname === "/"
-      ? "bg-white/15 text-white shadow-inner"
-      : "bg-white/5 hover:bg-white/10 text-gray-300"
-  }`}
+className={`py-4 px-4 rounded-xl transition active:scale-[0.98] border border-white/10 ${
+  location.pathname === "/"
+    ? "bg-white/15 text-white shadow-inner"
+    : "bg-white/5 text-white hover:bg-white/10 hover:scale-[1.02]"
+}`}
   >
         Gallery
       </Link>
@@ -142,22 +142,22 @@ className={`py-4 px-4 rounded-xl transition active:scale-[0.98] ${
           <Link
             to="/login"
             onClick={() => setOpen(false)}
-className={`py-4 px-4 rounded-xl transition active:scale-[0.98] ${
-    location.pathname === "/"
-      ? "bg-white/15 text-white shadow-inner"
-      : "bg-white/5 hover:bg-white/10 text-gray-300"
-  }`}>
+className={`py-4 px-4 rounded-xl transition active:scale-[0.98] border border-white/10 ${
+  location.pathname === "/"
+    ? "bg-white/15 text-white shadow-inner"
+    : "bg-white/5 text-white hover:bg-white/10 hover:scale-[1.02]"
+}`}>
             Login
           </Link>
 
           <Link
             to="/register"
             onClick={() => setOpen(false)}
-className={`py-4 px-4 rounded-xl transition active:scale-[0.98] ${
-    location.pathname === "/"
-      ? "bg-white/15 text-white shadow-inner"
-      : "bg-white/5 hover:bg-white/10 text-gray-300"
-  }`}>
+className={`py-4 px-4 rounded-xl transition active:scale-[0.98] border border-white/10 ${
+  location.pathname === "/"
+    ? "bg-white/15 text-white shadow-inner"
+    : "bg-white/5 text-white hover:bg-white/10 hover:scale-[1.02]"
+}`}>
             Register
           </Link>
         </>
@@ -166,11 +166,11 @@ className={`py-4 px-4 rounded-xl transition active:scale-[0.98] ${
           <Link
             to="/dashboard"
             onClick={() => setOpen(false)}
-className={`py-4 px-4 rounded-xl transition active:scale-[0.98] ${
-    location.pathname === "/"
-      ? "bg-white/15 text-white shadow-inner"
-      : "bg-white/5 hover:bg-white/10 text-gray-300"
-  }`}>
+className={`py-4 px-4 rounded-xl transition active:scale-[0.98] border border-white/10 ${
+  location.pathname === "/"
+    ? "bg-white/15 text-white shadow-inner"
+    : "bg-white/5 text-white hover:bg-white/10 hover:scale-[1.02]"
+}`}>
             Dashboard
           </Link>
 
