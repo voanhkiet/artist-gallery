@@ -105,11 +105,11 @@ export default function Navbar({ token, setToken }) {
     </div>
 
     {/* ITEMS */}
-    <div className="flex flex-col px-6 text-lg">
-
+<div className="flex flex-col px-6 text-lg space-y-1">
       <Link
         to="/"
-className="py-4 border-b border-gray-800 hover:text-gray-400 hover:bg-white/5 rounded-lg px-3 active:scale-[0.98] transition"      >
+className="py-4 hover:text-gray-400 hover:bg-white/5 rounded-lg px-3 active:scale-[0.98] transition"
+>
         Gallery
       </Link>
 
@@ -117,15 +117,13 @@ className="py-4 border-b border-gray-800 hover:text-gray-400 hover:bg-white/5 ro
         <>
           <Link
             to="/login"
-className="py-4 border-b border-gray-800 hover:text-gray-400 hover:bg-white/5 rounded-lg px-3 active:scale-[0.98] transition"            onClick={() => setOpen(false)}
-          >
+className="py-4 hover:text-gray-400 hover:bg-white/5 rounded-lg px-3 active:scale-[0.98] transition"          >
             Login
           </Link>
 
           <Link
             to="/register"
-className="py-4 border-b border-gray-800 hover:text-gray-400 hover:bg-white/5 rounded-lg px-3 active:scale-[0.98] transition"            onClick={() => setOpen(false)}
-          >
+className="py-4 hover:text-gray-400 hover:bg-white/5 rounded-lg px-3 active:scale-[0.98] transition"          >
             Register
           </Link>
         </>
@@ -133,14 +131,14 @@ className="py-4 border-b border-gray-800 hover:text-gray-400 hover:bg-white/5 ro
         <>
           <Link
             to="/dashboard"
-className="py-4 border-b border-gray-800 hover:text-gray-400 hover:bg-white/5 rounded-lg px-3 active:scale-[0.98] transition"            onClick={() => setOpen(false)}
-          >
+className="py-4 hover:text-gray-400 hover:bg-white/5 rounded-lg px-3 active:scale-[0.98] transition"          >
             Dashboard
           </Link>
 
           <button
             onClick={handleLogout}
-className="py-4 border-b border-gray-800 hover:text-gray-400 hover:bg-white/5 rounded-lg px-3 active:scale-[0.98] transition"          >
+            className="py-4 text-left text-red-400"
+          >
             Logout
           </button>
         </>
