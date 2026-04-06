@@ -37,6 +37,8 @@ useEffect(() => {
   window.addEventListener("keydown", handleKey);
   return () => window.removeEventListener("keydown", handleKey);
 }, [selectedImage, images]);
+
+
   useEffect(() => {
   if (selectedImage) {
     document.body.style.overflow = "hidden";
@@ -121,47 +123,53 @@ hover:shadow-2xl transition duration-300 hover:-translate-y-2 hover:scale-[1.02]
     >
 
       {/* ⬅️ LEFT ARROW */}
-      <div
-        className="absolute left-4 text-white text-4xl cursor-pointer select-none"
-        onClick={() => {
-          const i = images.findIndex(img => img.id === selectedImage.id);
-          setSelectedImage(images[(i - 1 + images.length) % images.length]);
-        }}
-      >
-        ‹
-      </div>
+<div
+  className="absolute left-6 md:left-10 text-white text-5xl cursor-pointer 
+  bg-black/40 hover:bg-black/70 w-12 h-12 flex items-center justify-center 
+  rounded-full transition"
+  onClick={() => {
+    const i = images.findIndex(img => img.id === selectedImage.id);
+    setSelectedImage(images[(i - 1 + images.length) % images.length]);
+  }}
+>
+  ‹
+</div>
 
       {/* IMAGE */}
-      <img
-        src={selectedImage.image_url}
-        alt={selectedImage.title}
-        className="max-w-[90%] max-h-[90%] rounded-lg shadow-lg"
-        style={{ animation: "zoomIn 0.25s ease" }}
-      />
+<img
+  src={selectedImage.image_url}
+  alt={selectedImage.title}
+  className="max-w-[90%] max-h-[90%] rounded-lg shadow-lg transition duration-300 hover:scale-[1.02]"
+  style={{ animation: "zoomIn 0.25s ease" }}
+/>
 
       {/* ➡️ RIGHT ARROW */}
-      <div
-        className="absolute right-4 text-white text-4xl cursor-pointer select-none"
-        onClick={() => {
-          const i = images.findIndex(img => img.id === selectedImage.id);
-          setSelectedImage(images[(i + 1) % images.length]);
-        }}
-      >
-        ›
-      </div>
+<div
+  className="absolute right-6 md:right-10 text-white text-5xl cursor-pointer 
+  bg-black/40 hover:bg-black/70 w-12 h-12 flex items-center justify-center 
+  rounded-full transition"
+  onClick={() => {
+    const i = images.findIndex(img => img.id === selectedImage.id);
+    setSelectedImage(images[(i + 1) % images.length]);
+  }}
+>
+  ›
+</div>
 
       {/* ❌ CLOSE */}
-      <div
-        className="absolute top-4 right-4 text-white text-2xl cursor-pointer bg-black/50 px-3 py-1 rounded-full"
-        onClick={() => setSelectedImage(null)}
-      >
-        ✖
-      </div>
+<div
+  className="absolute top-6 right-6 text-white text-xl cursor-pointer 
+  bg-black/50 hover:bg-black/80 px-4 py-2 rounded-full transition"
+  onClick={() => setSelectedImage(null)}
+>
+  ✖
+</div>
 
       {/* 📝 TITLE */}
-      <div className="absolute bottom-4 left-4 text-white bg-black/60 px-4 py-2 rounded-lg text-sm">
-        {selectedImage.title}
-      </div>
+<div className="absolute bottom-0 left-0 w-full p-4 
+bg-gradient-to-t from-black/80 to-transparent text-white text-sm">
+  {selectedImage.title}
+</div>
 
     </div>
   </div>
