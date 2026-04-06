@@ -12,10 +12,8 @@ export default function Navbar({ token, setToken }) {
   };
 
   return (
-    <nav className="bg-black text-white px-6 md:px-10 py-5 shadow-lg">
-      
-      {/* TOP BAR */}
-      <div className="flex justify-between items-center">
+   <nav className="bg-black text-white py-5">
+    <div className="px-10 flex justify-between items-center">
         
         <h1 className="text-xl md:text-2xl font-bold">
           🎨 Art Gallery
@@ -62,9 +60,9 @@ export default function Navbar({ token, setToken }) {
       </div>
 
       {/* 📱 MOBILE MENU */}
-      <div
-  className={`md:hidden overflow-hidden transition-all duration-300 ${
-    open ? "max-h-60 mt-4" : "max-h-0"
+<div
+  className={`md:hidden fixed top-[72px] left-0 w-full bg-black text-white z-50 transition-all duration-300 ${
+    open ? "max-h-96 py-6" : "max-h-0 overflow-hidden"
   }`}
 >
   <div className="flex flex-col gap-4 text-lg items-start">
