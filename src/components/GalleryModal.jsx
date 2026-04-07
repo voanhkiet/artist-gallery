@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, use } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function GalleryModal({ images, selected, setSelected }) {
@@ -8,7 +8,7 @@ export default function GalleryModal({ images, selected, setSelected }) {
   const imgRef = useRef(null);
   const startY = useRef(0);
 
-uuseEffect(() => {
+useEffect(() => {
   const el = imgRef.current;
   if (!el) return;
 
