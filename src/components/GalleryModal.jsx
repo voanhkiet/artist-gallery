@@ -64,25 +64,25 @@ export default function GalleryModal({ images, selected, setSelected }) {
   onClick={(e) => e.stopPropagation()}
 
   onTouchStart={(e) => {
-    startX.current = e.touches[0].clientX;
-  }}
+  startX.current = e.touches[0].clientX;
+  currentX.current = e.touches[0].clientX;
+}}
 
-  onTouchEnd={(e) => {
-    const endX = e.changedTouches[0].clientX;
-    const diff = startX.current - endX;
+onTouchEnd={() => {
+  const diff = startX.current - currentX.current;
 
-    console.log("SWIPE:", diff);
+  console.log("SWIPE:", diff);
 
-    if (Math.abs(diff) < 30) return;
+  if (Math.abs(diff) < 20) return;
 
-    if (diff > 0) {
-      setDirection(1);
-      setSelected(images[(currentIndex + 1) % images.length]);
-    } else {
-      setDirection(-1);
-      setSelected(images[(currentIndex - 1 + images.length) % images.length]);
-    }
-  }}
+  if (diff > 0) {
+    setDirection(1);
+    setSelected(images[(currentIndex + 1) % images.length]);
+  } else {
+    setDirection(-1);
+    setSelected(images[(currentIndex - 1 + images.length) % images.length]);
+  }
+}}
 >
 
         {/* ⬅️ PREVIOUS */}
