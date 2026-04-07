@@ -5,6 +5,28 @@ export default function GalleryModal({ images, selected, setSelected }) {
   const [direction, setDirection] = useState(0);
   const startX = useRef(0);
   const isSwiping = useRef(false);
+  const imgRef = useRef(null);
+
+useEffect(() => {
+  const el = imgRef.current;
+  if (!el) return;
+
+  const handleTouchMove = (e) => {
+    const currentX = e.touches[0].clientX;
+
+    if (Math.abs(startX.current - currentX) > 10) {
+      isSwiping.current = true;
+
+      e.preventDefault(); // ✅ NOW IT WORKS
+    }
+  };
+
+  el.addEventListener("touchmove", handleTouchMove, { passive: false });
+
+  return () => {
+    el.removeEventListener("touchmove", handleTouchMove);
+  };
+}, []);
 
   // ⌨️ Keyboard navigation
   useEffect(() => {
@@ -74,7 +96,7 @@ export default function GalleryModal({ images, selected, setSelected }) {
   key={selected.id}
   src={selected.image_url}
   alt={selected.title}
-  
+  ref ={imgRef}
   style={{ touchAction: "pan-y" }}
   draggable={false}
 
@@ -91,15 +113,7 @@ onTouchStart={(e) => {
   startX.current = e.touches[0].clientX;
 }}
 
-onTouchMove={(e) => {
-  const currentX = e.touches[0].clientX;
 
-  if (Math.abs(startX.current - currentX) > 10) {
-    isSwiping.current = true;
-
-    e.preventDefault(); // 🔥 CRITICAL FIX
-  }
-}}
 
 
   // 👇 TOUCH END
