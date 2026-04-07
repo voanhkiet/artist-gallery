@@ -51,7 +51,7 @@ export default function GalleryModal({ images, selected, setSelected }) {
         className="relative flex items-center justify-center h-full"
         drag="x"
         dragElastic={0.3}
-        style={{ touchAction: "pan-y" }}
+        style={{ touchAction: "none" }}
 
         onDragEnd={(e, info) => {
           const offset = info.offset.x;
@@ -87,9 +87,10 @@ export default function GalleryModal({ images, selected, setSelected }) {
     key={selected.id}
     src={selected.image_url}
     alt={selected.title}
+
     className="max-w-[95vw] max-h-[80vh] object-contain rounded-lg shadow-lg cursor-grab active:cursor-grabbing"
 
-    style={{ touchAction: "none" }} // 🔥 VERY IMPORTANT
+    style={{ touchAction: "none" }} // 🔥 CRITICAL FIX
 
     initial={{ x: direction > 0 ? 300 : -300, opacity: 0 }}
     animate={{ x: 0, opacity: 1 }}
@@ -98,16 +99,17 @@ export default function GalleryModal({ images, selected, setSelected }) {
     transition={{ duration: 0.3 }}
 
     drag="x"
-    dragElastic={0.4}
+    dragElastic={0.5}
 
     onDragEnd={(e, info) => {
+      console.log("SWIPE TRIGGERED"); // 👈 DEBUG
+
       const i = images.findIndex(img => img.id === selected.id);
       if (i === -1) return;
 
       const offset = info.offset.x;
       const velocity = info.velocity.x;
 
-      // 🔥 KEY LOGIC
       if (offset < -50 || velocity < -500) {
         setDirection(1);
         setSelected(images[(i + 1) % images.length]);
