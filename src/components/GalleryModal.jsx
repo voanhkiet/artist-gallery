@@ -74,7 +74,8 @@ export default function GalleryModal({ images, selected, setSelected }) {
   key={selected.id}
   src={selected.image_url}
   alt={selected.title}
-
+  
+  style={{ touchAction: "pan-y" }}
   draggable={false}
 
   className="max-w-[95vw] max-h-[80vh] object-contain rounded-lg shadow-lg"
@@ -92,8 +93,11 @@ onTouchStart={(e) => {
 
 onTouchMove={(e) => {
   const currentX = e.touches[0].clientX;
+
   if (Math.abs(startX.current - currentX) > 10) {
-    isSwiping.current = true; // 👈 detect swipe
+    isSwiping.current = true;
+
+    e.preventDefault(); // 🔥 CRITICAL FIX
   }
 }}
 
