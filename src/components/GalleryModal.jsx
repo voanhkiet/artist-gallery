@@ -69,27 +69,25 @@ return (
   src={selected.image_url}
   alt={selected.title}
   className="max-w-[95vw] max-h-[80vh] object-contain rounded-lg shadow-lg"
-  
+
   drag="x"
-  dragConstraints={{ left: 0, right: 0 }}
-  dragElastic={0.2}
+  dragConstraints={{ left: -200, right: 200 }}
+  dragElastic={0.3}
 
   onDragEnd={(e, info) => {
     const i = images.findIndex(img => img.id === selected.id);
     if (i === -1) return;
 
-    const swipe = info.offset.x;
-    const velocity = info.velocity.x;
+    const swipePower = Math.abs(info.offset.x) * info.velocity.x;
 
-    if (swipe < -120 || velocity < -500) {
+    if (swipePower < -5000) {
       setSelected(images[(i + 1) % images.length]);
     } 
-    else if (swipe > 120 || velocity > 500) {
+    else if (swipePower > 5000) {
       setSelected(images[(i - 1 + images.length) % images.length]);
     }
   }}
 />
-
       {/* ➡️ RIGHT */}
       <div
         className="absolute right-6 md:right-10 text-white text-5xl cursor-pointer 
