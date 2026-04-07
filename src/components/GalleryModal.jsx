@@ -38,17 +38,19 @@ export default function GalleryModal({ images, selected, setSelected }) {
   const currentIndex = images.findIndex(img => img.id === selected.id);
 
   return (
-    <div className="fixed inset-0 z-50">
+    <div className="fixed inset-0 z-50"
+    onClick={()=>setSelected(null)}
+    >
 
       {/* 🌫️ BACKGROUND */}
       <div
-        className="absolute inset-0 bg-black/80 backdrop-blur-md"
-        onClick={() => setSelected(null)}
-      />
+  className="absolute inset-0 bg-black/80 backdrop-blur-md pointer-events-none"
+/>
 
       {/* 📦 CONTENT */}
      <motion.div
   className="relative flex items-center justify-center h-full"
+  onClick={(e) => e.stopPropagation()}
 >
 
         {/* ⬅️ PREVIOUS */}
