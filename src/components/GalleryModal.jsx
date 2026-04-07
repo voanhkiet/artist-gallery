@@ -56,7 +56,8 @@ return (
         bg-black/40 hover:bg-black/70 w-12 h-12 flex items-center justify-center 
         rounded-full transition"
         onClick={() => {
-          const i = images.findIndex(img => img.id === selected.id);
+          const i = images.findIndex(img => img.id === selected?.id);
+          if (i === -1) return;
           setSelected(images[(i - 1 + images.length) % images.length]);
         }}
       >
@@ -64,14 +65,33 @@ return (
       </div>
 
       {/* IMAGE */}
-      <motion.img
-        src={selected.image_url}
-        alt={selected.title}
-        className="max-w-[90%] max-h-[90%] rounded-lg shadow-lg"
-        initial={{ scale: 0.8 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 0.3 }}
-      />
+<motion.img
+  src={selected.image_url}
+  alt={selected.title}
+  className="max-w-[95vw] max-h-[80vh] object-contain rounded-lg shadow-lg"
+  
+  initial={{ scale: 0.8 }}
+  animate={{ scale: 1 }}
+  transition={{ duration: 0.3 }}
+
+  // 👇 ADD THESE
+  drag="x"
+  dragConstraints={{ left: 0, right: 0 }}
+  onDragEnd={(e, info) => {
+    const i = images.findIndex(img => img.id === selected.id);
+    if (i === -1) return;
+
+    // 👉 swipe LEFT → next image
+    if (info.offset.x < -100) {
+      setSelected(images[(i + 1) % images.length]);
+    }
+
+    // 👉 swipe RIGHT → previous image
+    if (info.offset.x > 100) {
+      setSelected(images[(i - 1 + images.length) % images.length]);
+    }
+  }}
+/>
 
       {/* ➡️ RIGHT */}
       <div
@@ -79,7 +99,8 @@ return (
         bg-black/40 hover:bg-black/70 w-12 h-12 flex items-center justify-center 
         rounded-full transition"
         onClick={() => {
-          const i = images.findIndex(img => img.id === selected.id);
+          const i = images.findIndex(img => img.id === selected?.id);
+          if (i === -1) return;
           setSelected(images[(i + 1) % images.length]);
         }}
       >
