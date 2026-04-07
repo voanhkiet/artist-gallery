@@ -9,8 +9,7 @@ export default function GalleryModal({ images, selected, setSelected }) {
 
 useEffect(() => {
   if (selected) {
-    document.body.style.overflow = "hidden";
-    document.body.style.touchAction = "none"; // 🔥 CRITICAL
+document.body.style.overflow = selected ? "hidden" : "auto";
   } else {
     document.body.style.overflow = "auto";
     document.body.style.touchAction = "auto";
@@ -53,35 +52,21 @@ useEffect(() => {
 
   return (
    
-  <div className="fixed inset-0 z-50" onClick={() => setSelected(null)}
-  
-    >
+<div className="fixed inset-0 z-[9999]">
 
  
  {/* ✅ BACKGROUND OVERLAY */}
-  <div
-    className="absolute inset-0 bg-black/80 backdrop-blur-md z-0 pointer-events-none"
-    onClick={(e) => e.stopPropagation()}
-  />
+<div
+  className="absolute inset-0 bg-black/80 backdrop-blur-md"
+  onClick={() => setSelected(null)}
+/>
 
   {/* ✅ CONTENT */}
 <motion.div
-
-  ref={containerRef}
-  className="swipe-container relative z-10 flex items-center justify-center h-full"
-  
+  className="relative z-10 flex items-center justify-center h-full"
+  onClick={(e) => e.stopPropagation()}
 >
 
-        {/* ⬅️ PREVIOUS */}
-        <button
-          className="absolute left-4 md:left-10 z-10 text-white text-4xl bg-black/40 hover:bg-black/70 w-12 h-12 rounded-full flex items-center justify-center"
-          onClick={() => {
-            setDirection(-1);
-            setSelected(images[(currentIndex - 1 + images.length) % images.length]);
-          }}
-        >
-          ‹
-        </button>
 
         {/* IMAGE */}
         <AnimatePresence mode="wait">
@@ -90,25 +75,19 @@ useEffect(() => {
   src={selected.image_url}
   alt={selected.title}
   draggable={false}
-
   className="max-w-[95vw] max-h-[80vh] object-contain rounded-lg shadow-lg"
 
-  style={{
-    touchAction: "none",
-    userSelect: "none"
+  onTouchStart={(e) => {
+    startX.current = e.touches[0].clientX;
+    currentX.current = e.touches[0].clientX;
+    console.log("TOUCH START");
   }}
 
-  onPointerDown={(e) => {
-    startX.current = e.clientX;
-    currentX.current = e.clientX;
-    console.log("POINTER DOWN");
+  onTouchMove={(e) => {
+    currentX.current = e.touches[0].clientX;
   }}
 
-  onPointerMove={(e) => {
-    currentX.current = e.clientX;
-  }}
-
-  onPointerUp={() => {
+  onTouchEnd={() => {
     const diff = startX.current - currentX.current;
 
     console.log("SWIPE:", diff);
@@ -129,6 +108,7 @@ useEffect(() => {
   exit={{ x: direction > 0 ? -300 : 300, opacity: 0 }}
   transition={{ duration: 0.3 }}
 />
+
 </AnimatePresence>
 
         {/* ➡️ NEXT */}
@@ -142,6 +122,16 @@ useEffect(() => {
           ›
         </button>
 
+        {/* ⬅️ PREVIOUS */}
+        <button
+          className="absolute left-4 md:left-10 z-10 text-white text-4xl bg-black/40 hover:bg-black/70 w-12 h-12 rounded-full flex items-center justify-center"
+          onClick={() => {
+            setDirection(-1);
+            setSelected(images[(currentIndex - 1 + images.length) % images.length]);
+          }}
+        >
+          ‹
+        </button>
   
 
         {/* 📝 INFO */}
