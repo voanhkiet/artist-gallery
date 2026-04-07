@@ -124,22 +124,21 @@ onTouchStart={(e) => {
 
   // 👇 TOUCH END
   onTouchEnd={(e) => {
-  if (!isSwiping.current) return; // 👈 ignore tap
-
   const endX = e.changedTouches[0].clientX;
-  const diff = startX.current - endX;
+const diff = startX.current - endX;
 
-  console.log("SWIPE:", diff);
+console.log("SWIPE:", diff);
 
-  if (diff > 30) {
-    setDirection(1);
-    setSelected(images[(currentIndex + 1) % images.length]);
-  }
+// 👇 ONLY check distance (reliable)
+if (Math.abs(diff) < 20) return;
 
-  if (diff < -30) {
-    setDirection(-1);
-    setSelected(images[(currentIndex - 1 + images.length) % images.length]);
-  }
+if (diff > 0) {
+  setDirection(1);
+  setSelected(images[(currentIndex + 1) % images.length]);
+} else {
+  setDirection(-1);
+  setSelected(images[(currentIndex - 1 + images.length) % images.length]);
+}
 }}
 />
 </AnimatePresence>
