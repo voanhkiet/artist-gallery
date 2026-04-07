@@ -6,7 +6,20 @@ export default function GalleryModal({ images, selected, setSelected }) {
   const startX = useRef(0);
   const currentX = useRef(0);
   
-  
+  useEffect(() => {
+  const el = document.querySelector(".swipe-container");
+  if (!el) return;
+
+  const preventScroll = (e) => {
+    e.preventDefault();
+  };
+
+  el.addEventListener("touchmove", preventScroll, { passive: false });
+
+  return () => {
+    el.removeEventListener("touchmove", preventScroll);
+  };
+}, []);
 
 
 
@@ -60,7 +73,7 @@ export default function GalleryModal({ images, selected, setSelected }) {
 
   {/* ✅ CONTENT */}
 <motion.div
-  className="relative flex items-center justify-center h-full"
+  className="swipe-container relative flex items-center justify-center h-full"
   style={{ touchAction: "none" }}
   onClick={(e) => e.stopPropagation()}
 
