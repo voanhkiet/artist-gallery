@@ -39,7 +39,7 @@ export default function GalleryModal({ images, selected, setSelected }) {
 
   return (
     <div className="fixed inset-0 z-50"
-    onClick={()=>setSelected(null)}
+  
     >
 
       {/* 🌫️ BACKGROUND */}
@@ -47,11 +47,17 @@ export default function GalleryModal({ images, selected, setSelected }) {
   className="absolute inset-0 bg-black/80 backdrop-blur-md pointer-events-none"
 />
 
-      {/* 📦 CONTENT */}
-     <motion.div
-  className="relative flex items-center justify-center h-full"
-  onClick={(e) => e.stopPropagation()}
->
+ {/* ✅ BACKGROUND OVERLAY */}
+  <div
+    className="absolute inset-0 bg-black/80 backdrop-blur-md"
+    onClick={() => setSelected(null)}
+  />
+
+  {/* ✅ CONTENT */}
+  <motion.div
+    className="relative flex items-center justify-center h-full"
+    onClick={(e) => e.stopPropagation()}
+  >
 
         {/* ⬅️ PREVIOUS */}
         <button
@@ -119,13 +125,7 @@ export default function GalleryModal({ images, selected, setSelected }) {
           ›
         </button>
 
-        {/* ❌ CLOSE */}
-        <button
-          className="absolute top-6 right-6 text-white text-xl bg-black/50 hover:bg-black/80 px-4 py-2 rounded-full"
-          onClick={() => setSelected(null)}
-        >
-          ✖
-        </button>
+  
 
         {/* 📝 INFO */}
         <div className="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/90 via-black/70 to-transparent text-white">
