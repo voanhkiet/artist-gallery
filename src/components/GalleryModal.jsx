@@ -70,24 +70,21 @@ return (
   alt={selected.title}
   className="max-w-[95vw] max-h-[80vh] object-contain rounded-lg shadow-lg"
   
-  initial={{ scale: 0.8 }}
-  animate={{ scale: 1 }}
-  transition={{ duration: 0.3 }}
-
-  // 👇 ADD THESE
   drag="x"
   dragConstraints={{ left: 0, right: 0 }}
+  dragElastic={0.2}
+
   onDragEnd={(e, info) => {
     const i = images.findIndex(img => img.id === selected.id);
     if (i === -1) return;
 
-    // 👉 swipe LEFT → next image
-    if (info.offset.x < -100) {
-      setSelected(images[(i + 1) % images.length]);
-    }
+    const swipe = info.offset.x;
+    const velocity = info.velocity.x;
 
-    // 👉 swipe RIGHT → previous image
-    if (info.offset.x > 100) {
+    if (swipe < -120 || velocity < -500) {
+      setSelected(images[(i + 1) % images.length]);
+    } 
+    else if (swipe > 120 || velocity > 500) {
       setSelected(images[(i - 1 + images.length) % images.length]);
     }
   }}
