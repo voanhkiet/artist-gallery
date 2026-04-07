@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, use } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function GalleryModal({ images, selected, setSelected }) {
@@ -6,20 +6,25 @@ export default function GalleryModal({ images, selected, setSelected }) {
   const startX = useRef(0);
   const isSwiping = useRef(false);
   const imgRef = useRef(null);
+  const startY = useRef(0);
 
 useEffect(() => {
   const el = imgRef.current;
   if (!el) return;
 
-  const handleTouchMove = (e) => {
-    const currentX = e.touches[0].clientX;
+const handleTouchMove = (e) => {
+  const currentX = e.touches[0].clientX;
+  const currentY = e.touches[0].clientY;
 
-    if (Math.abs(startX.current - currentX) > 10) {
-      isSwiping.current = true;
+  const diffX = Math.abs(startX.current - currentX);
+  const diffY = Math.abs(startY.current - currentY);
 
-      e.preventDefault(); // ✅ NOW IT WORKS
-    }
-  };
+  // 🔥 ONLY trigger swipe if horizontal > vertical
+  if (diffX > 20 && diffX > diffY) {
+    isSwiping.current = true;
+    e.preventDefault();
+  }
+};
 
   el.addEventListener("touchmove", handleTouchMove, { passive: false });
 
@@ -111,6 +116,7 @@ useEffect(() => {
 onTouchStart={(e) => {
   isSwiping.current = false;
   startX.current = e.touches[0].clientX;
+  startY.current = e.touches[0].clientY;
 }}
 
 
