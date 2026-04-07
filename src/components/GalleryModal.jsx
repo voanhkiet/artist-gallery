@@ -1,10 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 export default function GalleryModal({ images, selected, setSelected }) {
-
+  const [direction, setDirection] = useState(0);
   // ⌨️ keyboard navigation
   useEffect(() => {
     const handleKey = (e) => {
@@ -58,6 +58,8 @@ return (
         onClick={() => {
           const i = images.findIndex(img => img.id === selected?.id);
           if (i === -1) return;
+
+          setDirection(-1); // 👈 ADD THIS
           setSelected(images[(i - 1 + images.length) % images.length]);
         }}
       >
@@ -73,9 +75,9 @@ return (
 
     className="max-w-[95vw] max-h-[80vh] object-contain rounded-lg shadow-lg"
 
-    initial={{ x: 300, opacity: 0 }}
-    animate={{ x: 0, opacity: 1 }}
-    exit={{ x: -300, opacity: 0 }}
+initial={{ x: direction > 0 ? 300 : -300, opacity: 0 }}
+animate={{ x: 0, opacity: 1 }}
+exit={{ x: direction > 0 ? -300 : 300, opacity: 0 }}
 
     transition={{ duration: 0.3 }}
 
@@ -87,13 +89,15 @@ return (
       const i = images.findIndex(img => img.id === selected.id);
       if (i === -1) return;
 
-      if (info.offset.x < -100) {
-        setSelected(images[(i + 1) % images.length]);
-      }
+if (info.offset.x < -100) {
+  setDirection(1); // 👉 next
+  setSelected(images[(i + 1) % images.length]);
+}
 
-      if (info.offset.x > 100) {
-        setSelected(images[(i - 1 + images.length) % images.length]);
-      }
+if (info.offset.x > 100) {
+  setDirection(-1); // 👉 previous
+  setSelected(images[(i - 1 + images.length) % images.length]);
+}
     }}
   />
 </AnimatePresence>
@@ -102,11 +106,13 @@ return (
         className="absolute right-6 md:right-10 text-white text-5xl cursor-pointer 
         bg-black/40 hover:bg-black/70 w-12 h-12 flex items-center justify-center 
         rounded-full transition"
-        onClick={() => {
-          const i = images.findIndex(img => img.id === selected?.id);
-          if (i === -1) return;
-          setSelected(images[(i + 1) % images.length]);
-        }}
+onClick={() => {
+  const i = images.findIndex(img => img.id === selected?.id);
+  if (i === -1) return;
+
+  setDirection(1); // 👈 ADD THIS
+  setSelected(images[(i + 1) % images.length]);
+}}
       >
         ›
       </div>
