@@ -8,30 +8,28 @@ export default function GalleryModal({ images, selected, setSelected }) {
   const imgRef = useRef(null);
   const startY = useRef(0);
 
-useEffect(() => {
+uuseEffect(() => {
   const el = imgRef.current;
   if (!el) return;
 
-const handleTouchMove = (e) => {
-  const currentX = e.touches[0].clientX;
-  const currentY = e.touches[0].clientY;
+  const handleTouchMove = (e) => {
+    const currentX = e.touches[0].clientX;
+    const currentY = e.touches[0].clientY;
 
-  const diffX = Math.abs(startX.current - currentX);
-  const diffY = Math.abs(startY.current - currentY);
+    const diffX = Math.abs(startX.current - currentX);
+    const diffY = Math.abs(startY.current - currentY);
 
-  // 🔥 ONLY trigger swipe if horizontal > vertical
-  if (diffX > 20 && diffX > diffY) {
-    isSwiping.current = true;
-    e.preventDefault();
-  }
-};
+    if (diffX > 20 && diffX > diffY) {
+      e.preventDefault(); // 👈 keep this
+    }
+  };
 
   el.addEventListener("touchmove", handleTouchMove, { passive: false });
 
   return () => {
     el.removeEventListener("touchmove", handleTouchMove);
   };
-}, []);
+}, [selected]); // ✅ FIX
 
   // ⌨️ Keyboard navigation
   useEffect(() => {
