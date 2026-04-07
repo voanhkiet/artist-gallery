@@ -4,32 +4,13 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function GalleryModal({ images, selected, setSelected }) {
   const [direction, setDirection] = useState(0);
   const startX = useRef(0);
-  const isSwiping = useRef(false);
-  const imgRef = useRef(null);
-  const startY = useRef(0);
+  
+  
 
-useEffect(() => {
-  const el = imgRef.current;
-  if (!el) return;
 
-  const handleTouchMove = (e) => {
-    const currentX = e.touches[0].clientX;
-    const currentY = e.touches[0].clientY;
 
-    const diffX = Math.abs(startX.current - currentX);
-    const diffY = Math.abs(startY.current - currentY);
 
-    if (diffX > 20 && diffX > diffY) {
-      e.preventDefault(); // 👈 keep this
-    }
-  };
 
-  el.addEventListener("touchmove", handleTouchMove, { passive: false });
-
-  return () => {
-    el.removeEventListener("touchmove", handleTouchMove);
-  };
-}, [selected]); // ✅ FIX
 
   // ⌨️ Keyboard navigation
   useEffect(() => {
@@ -77,10 +58,32 @@ useEffect(() => {
   />
 
   {/* ✅ CONTENT */}
-  <motion.div
-    className="relative flex items-center justify-center h-full"
-    onClick={(e) => e.stopPropagation()}
-  >
+<motion.div
+  className="relative flex items-center justify-center h-full"
+  style={{ touchAction: "none" }}
+  onClick={(e) => e.stopPropagation()}
+
+  onTouchStart={(e) => {
+    startX.current = e.touches[0].clientX;
+  }}
+
+  onTouchEnd={(e) => {
+    const endX = e.changedTouches[0].clientX;
+    const diff = startX.current - endX;
+
+    console.log("SWIPE:", diff);
+
+    if (Math.abs(diff) < 30) return;
+
+    if (diff > 0) {
+      setDirection(1);
+      setSelected(images[(currentIndex + 1) % images.length]);
+    } else {
+      setDirection(-1);
+      setSelected(images[(currentIndex - 1 + images.length) % images.length]);
+    }
+  }}
+>
 
         {/* ⬅️ PREVIOUS */}
         <button
@@ -95,49 +98,17 @@ useEffect(() => {
 
         {/* IMAGE */}
         <AnimatePresence mode="wait">
- <motion.img
+<motion.img
   key={selected.id}
   src={selected.image_url}
   alt={selected.title}
-  ref ={imgRef}
-  style={{ touchAction: "pan-y" }}
   draggable={false}
-
   className="max-w-[95vw] max-h-[80vh] object-contain rounded-lg shadow-lg"
 
   initial={{ x: direction > 0 ? 300 : -300, opacity: 0 }}
   animate={{ x: 0, opacity: 1 }}
   exit={{ x: direction > 0 ? -300 : 300, opacity: 0 }}
   transition={{ duration: 0.3 }}
-
-  // 👇 TOUCH START
-onTouchStart={(e) => {
-  isSwiping.current = false;
-  startX.current = e.touches[0].clientX;
-  startY.current = e.touches[0].clientY;
-}}
-
-
-
-
-  // 👇 TOUCH END
-  onTouchEnd={(e) => {
-  const endX = e.changedTouches[0].clientX;
-const diff = startX.current - endX;
-
-console.log("SWIPE:", diff);
-
-// 👇 ONLY check distance (reliable)
-if (Math.abs(diff) < 20) return;
-
-if (diff > 0) {
-  setDirection(1);
-  setSelected(images[(currentIndex + 1) % images.length]);
-} else {
-  setDirection(-1);
-  setSelected(images[(currentIndex - 1 + images.length) % images.length]);
-}
-}}
 />
 </AnimatePresence>
 
