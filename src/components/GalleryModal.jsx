@@ -83,19 +83,43 @@ export default function GalleryModal({ images, selected, setSelected }) {
 
         {/* IMAGE */}
         <AnimatePresence mode="wait">
-          <motion.img
-            key={selected.id}
-            src={selected.image_url}
-            alt={selected.title}
-            className="max-w-[95vw] max-h-[80vh] object-contain rounded-lg shadow-lg"
+  <motion.img
+    key={selected.id}
+    src={selected.image_url}
+    alt={selected.title}
+    className="max-w-[95vw] max-h-[80vh] object-contain rounded-lg shadow-lg cursor-grab active:cursor-grabbing"
 
-            initial={{ x: direction > 0 ? 300 : -300, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: direction > 0 ? -300 : 300, opacity: 0 }}
+    style={{ touchAction: "none" }} // 🔥 VERY IMPORTANT
 
-            transition={{ duration: 0.3 }}
-          />
-        </AnimatePresence>
+    initial={{ x: direction > 0 ? 300 : -300, opacity: 0 }}
+    animate={{ x: 0, opacity: 1 }}
+    exit={{ x: direction > 0 ? -300 : 300, opacity: 0 }}
+
+    transition={{ duration: 0.3 }}
+
+    drag="x"
+    dragElastic={0.4}
+
+    onDragEnd={(e, info) => {
+      const i = images.findIndex(img => img.id === selected.id);
+      if (i === -1) return;
+
+      const offset = info.offset.x;
+      const velocity = info.velocity.x;
+
+      // 🔥 KEY LOGIC
+      if (offset < -50 || velocity < -500) {
+        setDirection(1);
+        setSelected(images[(i + 1) % images.length]);
+      }
+
+      if (offset > 50 || velocity > 500) {
+        setDirection(-1);
+        setSelected(images[(i - 1 + images.length) % images.length]);
+      }
+    }}
+  />
+</AnimatePresence>
 
         {/* ➡️ NEXT */}
         <button
