@@ -40,10 +40,7 @@ export default function Gallery() {
     return () => window.removeEventListener("keydown", handleKey);
   }, [selectedImage, artworks]);
 
-  // 🔒 Lock scroll when modal open
-  useEffect(() => {
-    document.body.style.overflow = selectedImage ? "hidden" : "auto";
-  }, [selectedImage]);
+
 
   return (
     <div className="min-h-screen bg-gray-100 p-6 md:p-10">
@@ -78,7 +75,7 @@ export default function Gallery() {
               {/* IMAGE */}
               <div className="overflow-hidden">
                 <img
-                  src={selected.image_url}
+                  src={art.image_url}
                   alt={art.title}
                   onError={(e) => {
                     e.target.src = "https://via.placeholder.com/300";
