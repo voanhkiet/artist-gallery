@@ -55,7 +55,7 @@ export default function GalleryModal({ images, selected, setSelected }) {
  
  {/* ✅ BACKGROUND OVERLAY */}
   <div
-    className="absolute inset-0 bg-black/80 backdrop-blur-md"
+    className="absolute inset-0 bg-black/80 backdrop-blur-md z-0 pointer-events-auto"
     onClick={() => setSelected(null)}
   />
 
