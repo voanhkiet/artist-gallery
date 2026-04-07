@@ -65,7 +65,7 @@ return (
 
       {/* IMAGE */}
       <motion.img
-        src={`${API_URL}/uploads/${selected.image}`}
+        src={selected.image_url}
         alt={selected.title}
         className="max-w-[90%] max-h-[90%] rounded-lg shadow-lg"
         initial={{ scale: 0.8 }}
@@ -95,11 +95,41 @@ return (
         ✖
       </div>
 
-      {/* 📝 TITLE */}
       <div className="absolute bottom-0 left-0 w-full p-4 
-      bg-gradient-to-t from-black/80 to-transparent text-white text-sm">
-        {selected.title}
-      </div>
+bg-gradient-to-t from-black/90 via-black/70 to-transparent text-white">
+
+  {/* TITLE */}
+  <h2 className="text-lg md:text-xl font-semibold">
+    {selected.title}
+  </h2>
+
+  {/* DESCRIPTION */}
+  {selected.description && (
+    <p className="text-sm text-gray-300 mt-1 line-clamp-2">
+      {selected.description}
+    </p>
+  )}
+
+  {/* META */}
+  <div className="flex justify-between items-center mt-3 text-xs text-gray-400">
+
+    {/* LEFT */}
+    <div className="flex flex-col">
+      <span>By {selected.user || "Unknown"}</span>
+      <span>
+        {selected.created_at
+          ? new Date(selected.created_at).toLocaleDateString()
+          : ""}
+      </span>
+    </div>
+
+    {/* RIGHT (counter) */}
+    <div className="bg-black/50 px-3 py-1 rounded-full text-white">
+      {images.findIndex(img => img.id === selected.id) + 1} / {images.length}
+    </div>
+
+  </div>
+</div>
 
     </motion.div>
   </motion.div>
