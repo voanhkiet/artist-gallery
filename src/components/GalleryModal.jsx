@@ -74,6 +74,7 @@ return (
     alt={selected.title}
 
     className="max-w-[95vw] max-h-[80vh] object-contain rounded-lg shadow-lg"
+ style={{ touchAction: "pan-y" }} 
 
 initial={{ x: direction > 0 ? 300 : -300, opacity: 0 }}
 animate={{ x: 0, opacity: 1 }}
