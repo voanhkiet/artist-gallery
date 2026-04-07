@@ -47,28 +47,9 @@ export default function GalleryModal({ images, selected, setSelected }) {
       />
 
       {/* 📦 CONTENT */}
-      <motion.div
-        className="relative flex items-center justify-center h-full"
-        drag="x"
-        dragElastic={0.3}
-        style={{ touchAction: "none" }}
-
-        onDragEnd={(e, info) => {
-          const offset = info.offset.x;
-          const velocity = info.velocity.x;
-
-          const swipe = Math.abs(offset) > 60 || Math.abs(velocity) > 500;
-          if (!swipe) return;
-
-          if (offset < 0) {
-            setDirection(1);
-            setSelected(images[(currentIndex + 1) % images.length]);
-          } else {
-            setDirection(-1);
-            setSelected(images[(currentIndex - 1 + images.length) % images.length]);
-          }
-        }}
-      >
+     <motion.div
+  className="relative flex items-center justify-center h-full"
+>
 
         {/* ⬅️ PREVIOUS */}
         <button
@@ -83,44 +64,46 @@ export default function GalleryModal({ images, selected, setSelected }) {
 
         {/* IMAGE */}
         <AnimatePresence mode="wait">
-  <motion.img
-    key={selected.id}
-    src={selected.image_url}
-    alt={selected.title}
+ <motion.img
+  key={selected.id}
+  src={selected.image_url}
+  alt={selected.title}
 
-    className="max-w-[95vw] max-h-[80vh] object-contain rounded-lg shadow-lg cursor-grab active:cursor-grabbing"
+  draggable={false} // 🔥 IMPORTANT FIX
 
-    style={{ touchAction: "none" }} // 🔥 CRITICAL FIX
+  className="max-w-[95vw] max-h-[80vh] object-contain rounded-lg shadow-lg cursor-grab active:cursor-grabbing"
 
-    initial={{ x: direction > 0 ? 300 : -300, opacity: 0 }}
-    animate={{ x: 0, opacity: 1 }}
-    exit={{ x: direction > 0 ? -300 : 300, opacity: 0 }}
+  style={{ touchAction: "none" }}
 
-    transition={{ duration: 0.3 }}
+  initial={{ x: direction > 0 ? 300 : -300, opacity: 0 }}
+  animate={{ x: 0, opacity: 1 }}
+  exit={{ x: direction > 0 ? -300 : 300, opacity: 0 }}
 
-    drag="x"
-    dragElastic={0.5}
+  transition={{ duration: 0.3 }}
 
-    onDragEnd={(e, info) => {
-      console.log("SWIPE TRIGGERED"); // 👈 DEBUG
+  drag="x"
+  dragElastic={0.5}
 
-      const i = images.findIndex(img => img.id === selected.id);
-      if (i === -1) return;
+  onDragEnd={(e, info) => {
+    console.log("SWIPE TRIGGERED");
 
-      const offset = info.offset.x;
-      const velocity = info.velocity.x;
+    const i = images.findIndex(img => img.id === selected.id);
+    if (i === -1) return;
 
-      if (offset < -50 || velocity < -500) {
-        setDirection(1);
-        setSelected(images[(i + 1) % images.length]);
-      }
+    const offset = info.offset.x;
+    const velocity = info.velocity.x;
 
-      if (offset > 50 || velocity > 500) {
-        setDirection(-1);
-        setSelected(images[(i - 1 + images.length) % images.length]);
-      }
-    }}
-  />
+    if (offset < -50 || velocity < -500) {
+      setDirection(1);
+      setSelected(images[(i + 1) % images.length]);
+    }
+
+    if (offset > 50 || velocity > 500) {
+      setDirection(-1);
+      setSelected(images[(i - 1 + images.length) % images.length]);
+    }
+  }}
+/>
 </AnimatePresence>
 
         {/* ➡️ NEXT */}
