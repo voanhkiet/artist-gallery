@@ -94,17 +94,19 @@ useEffect(() => {
   className="max-w-[95vw] max-h-[80vh] object-contain rounded-lg shadow-lg"
 
   style={{
-    touchAction: "none", // 🔥 CRITICAL
-    userSelect: "none"
+    touchAction: "none",
+    userSelect: "none",
+    WebkitUserDrag: "none"
   }}
 
   onTouchStart={(e) => {
     startX.current = e.touches[0].clientX;
     currentX.current = e.touches[0].clientX;
-    console.log("TOUCH START"); // 👈 debug
+    console.log("TOUCH START");
   }}
 
   onTouchMove={(e) => {
+    e.preventDefault(); // 🔥 CRITICAL FIX
     currentX.current = e.touches[0].clientX;
   }}
 
