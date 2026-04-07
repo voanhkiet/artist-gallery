@@ -95,27 +95,25 @@ useEffect(() => {
 
   style={{
     touchAction: "none",
-    userSelect: "none",
-    WebkitUserDrag: "none"
+    userSelect: "none"
   }}
 
-  onTouchStart={(e) => {
-    startX.current = e.touches[0].clientX;
-    currentX.current = e.touches[0].clientX;
-    console.log("TOUCH START");
+  onPointerDown={(e) => {
+    startX.current = e.clientX;
+    currentX.current = e.clientX;
+    console.log("POINTER DOWN");
   }}
 
-  onTouchMove={(e) => {
-    e.preventDefault(); // 🔥 CRITICAL FIX
-    currentX.current = e.touches[0].clientX;
+  onPointerMove={(e) => {
+    currentX.current = e.clientX;
   }}
 
-  onTouchEnd={() => {
+  onPointerUp={() => {
     const diff = startX.current - currentX.current;
 
     console.log("SWIPE:", diff);
 
-    if (Math.abs(diff) < 20) return;
+    if (Math.abs(diff) < 30) return;
 
     if (diff > 0) {
       setDirection(1);
