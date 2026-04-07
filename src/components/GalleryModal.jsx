@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function GalleryModal({ images, selected, setSelected }) {
   const [direction, setDirection] = useState(0);
   const startX = useRef(0);
+  const isSwiping = useRef(false);
 
   // ⌨️ Keyboard navigation
   useEffect(() => {
@@ -84,23 +85,34 @@ export default function GalleryModal({ images, selected, setSelected }) {
   transition={{ duration: 0.3 }}
 
   // 👇 TOUCH START
-  onTouchStart={(e) => {
+onTouchStart={(e) => {
+  isSwiping.current = false;
   startX.current = e.touches[0].clientX;
 }}
 
+onTouchMove={(e) => {
+  const currentX = e.touches[0].clientX;
+  if (Math.abs(startX.current - currentX) > 10) {
+    isSwiping.current = true; // 👈 detect swipe
+  }
+}}
+
+
   // 👇 TOUCH END
   onTouchEnd={(e) => {
+  if (!isSwiping.current) return; // 👈 ignore tap
+
   const endX = e.changedTouches[0].clientX;
   const diff = startX.current - endX;
 
   console.log("SWIPE:", diff);
 
-  if (diff > 50) {
+  if (diff > 30) {
     setDirection(1);
     setSelected(images[(currentIndex + 1) % images.length]);
   }
 
-  if (diff < -50) {
+  if (diff < -30) {
     setDirection(-1);
     setSelected(images[(currentIndex - 1 + images.length) % images.length]);
   }
