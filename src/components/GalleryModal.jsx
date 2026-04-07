@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function GalleryModal({ images, selected, setSelected }) {
   const [direction, setDirection] = useState(0);
+  const startX = useRef(0);
 
   // ⌨️ Keyboard navigation
   useEffect(() => {
@@ -73,40 +74,37 @@ export default function GalleryModal({ images, selected, setSelected }) {
   src={selected.image_url}
   alt={selected.title}
 
-  draggable={false} // 🔥 IMPORTANT FIX
+  draggable={false}
 
-  className="max-w-[95vw] max-h-[80vh] object-contain rounded-lg shadow-lg cursor-grab active:cursor-grabbing"
-
-  style={{ touchAction: "pan-y" }}
+  className="max-w-[95vw] max-h-[80vh] object-contain rounded-lg shadow-lg"
 
   initial={{ x: direction > 0 ? 300 : -300, opacity: 0 }}
   animate={{ x: 0, opacity: 1 }}
   exit={{ x: direction > 0 ? -300 : 300, opacity: 0 }}
-
   transition={{ duration: 0.3 }}
 
-  drag="x"
-  dragElastic={0.5}
+  // 👇 TOUCH START
+  onTouchStart={(e) => {
+  startX.current = e.touches[0].clientX;
+}}
 
-  onDragEnd={(e, info) => {
-    console.log("SWIPE TRIGGERED");
+  // 👇 TOUCH END
+  onTouchEnd={(e) => {
+  const endX = e.changedTouches[0].clientX;
+  const diff = startX.current - endX;
 
-    const i = images.findIndex(img => img.id === selected.id);
-    if (i === -1) return;
+  console.log("SWIPE:", diff);
 
-    const offset = info.offset.x;
-    const velocity = info.velocity.x;
+  if (diff > 50) {
+    setDirection(1);
+    setSelected(images[(currentIndex + 1) % images.length]);
+  }
 
-    if (offset < -50 || velocity < -500) {
-      setDirection(1);
-      setSelected(images[(i + 1) % images.length]);
-    }
-
-    if (offset > 50 || velocity > 500) {
-      setDirection(-1);
-      setSelected(images[(i - 1 + images.length) % images.length]);
-    }
-  }}
+  if (diff < -50) {
+    setDirection(-1);
+    setSelected(images[(currentIndex - 1 + images.length) % images.length]);
+  }
+}}
 />
 </AnimatePresence>
 
