@@ -78,7 +78,7 @@ export default function Gallery() {
               {/* IMAGE */}
               <div className="overflow-hidden">
                 <img
-                  src={`${API_URL}/uploads/${art.image}`}
+                  src={selected.image_url}
                   alt={art.title}
                   onError={(e) => {
                     e.target.src = "https://via.placeholder.com/300";
