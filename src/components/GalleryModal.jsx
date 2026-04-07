@@ -82,23 +82,28 @@ exit={{ x: direction > 0 ? -300 : 300, opacity: 0 }}
     transition={{ duration: 0.3 }}
 
     drag="x"
-    dragConstraints={{ left: 0, right: 0 }}
-    dragElastic={0.2}
+    dragConstraints={{ left: -300, right: 300 }}
+    dragElastic={0.5}
 
-    onDragEnd={(e, info) => {
-      const i = images.findIndex(img => img.id === selected.id);
-      if (i === -1) return;
+onDragEnd={(e, info) => {
+  const i = images.findIndex(img => img.id === selected.id);
+  if (i === -1) return;
 
-if (info.offset.x < -100) {
-  setDirection(1); // 👉 next
-  setSelected(images[(i + 1) % images.length]);
-}
+  const offset = info.offset.x;
+  const velocity = info.velocity.x;
 
-if (info.offset.x > 100) {
-  setDirection(-1); // 👉 previous
-  setSelected(images[(i - 1 + images.length) % images.length]);
-}
-    }}
+  const swipe = Math.abs(offset) > 60 || Math.abs(velocity) > 500;
+
+  if (!swipe) return;
+
+  if (offset < 0) {
+    setDirection(1);
+    setSelected(images[(i + 1) % images.length]);
+  } else {
+    setDirection(-1);
+    setSelected(images[(i - 1 + images.length) % images.length]);
+  }
+}}
   />
 </AnimatePresence>
       {/* ➡️ RIGHT */}
