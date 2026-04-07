@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -65,29 +65,38 @@ return (
       </div>
 
       {/* IMAGE */}
-<motion.img
-  src={selected.image_url}
-  alt={selected.title}
-  className="max-w-[95vw] max-h-[80vh] object-contain rounded-lg shadow-lg"
+<AnimatePresence mode="wait">
+  <motion.img
+    key={selected.id}
+    src={selected.image_url}
+    alt={selected.title}
 
-  drag="x"
-  dragConstraints={{ left: -200, right: 200 }}
-  dragElastic={0.3}
+    className="max-w-[95vw] max-h-[80vh] object-contain rounded-lg shadow-lg"
 
-  onDragEnd={(e, info) => {
-    const i = images.findIndex(img => img.id === selected.id);
-    if (i === -1) return;
+    initial={{ x: 300, opacity: 0 }}
+    animate={{ x: 0, opacity: 1 }}
+    exit={{ x: -300, opacity: 0 }}
 
-    const swipePower = Math.abs(info.offset.x) * info.velocity.x;
+    transition={{ duration: 0.3 }}
 
-    if (swipePower < -5000) {
-      setSelected(images[(i + 1) % images.length]);
-    } 
-    else if (swipePower > 5000) {
-      setSelected(images[(i - 1 + images.length) % images.length]);
-    }
-  }}
-/>
+    drag="x"
+    dragConstraints={{ left: 0, right: 0 }}
+    dragElastic={0.2}
+
+    onDragEnd={(e, info) => {
+      const i = images.findIndex(img => img.id === selected.id);
+      if (i === -1) return;
+
+      if (info.offset.x < -100) {
+        setSelected(images[(i + 1) % images.length]);
+      }
+
+      if (info.offset.x > 100) {
+        setSelected(images[(i - 1 + images.length) % images.length]);
+      }
+    }}
+  />
+</AnimatePresence>
       {/* ➡️ RIGHT */}
       <div
         className="absolute right-6 md:right-10 text-white text-5xl cursor-pointer 
