@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function GalleryModal({ images, selected, setSelected }) {
   const [direction, setDirection] = useState(0);
   const startX = useRef(0);
+  const currentX = useRef(0);
   
   
 
@@ -65,6 +66,10 @@ export default function GalleryModal({ images, selected, setSelected }) {
 
   onTouchStart={(e) => {
   startX.current = e.touches[0].clientX;
+  currentX.current = e.touches[0].clientX;
+}}
+
+onTouchMove={(e) => {
   currentX.current = e.touches[0].clientX;
 }}
 
