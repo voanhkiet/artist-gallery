@@ -5,21 +5,28 @@ export default function GalleryModal({ images, selected, setSelected }) {
   const [direction, setDirection] = useState(0);
   const startX = useRef(0);
   const currentX = useRef(0);
+  const containerRef = useRef(null);
   
-  useEffect(() => {
-  const el = document.querySelector(".swipe-container");
+useEffect(() => {
+  const el = containerRef.current;
   if (!el) return;
 
-  const preventScroll = (e) => {
+ const preventScroll = (e) => {
+  const touch = e.touches[0];
+  const dx = Math.abs(touch.clientX - startX.current);
+
+  // only block if horizontal swipe
+  if (dx > 10) {
     e.preventDefault();
-  };
+  }
+};
 
   el.addEventListener("touchmove", preventScroll, { passive: false });
 
   return () => {
     el.removeEventListener("touchmove", preventScroll);
   };
-}, []);
+}, [selected]); // 🔥 important
 
 
 
@@ -60,7 +67,8 @@ export default function GalleryModal({ images, selected, setSelected }) {
   const currentIndex = images.findIndex(img => img.id === selected.id);
 
   return (
-    <div className="fixed inset-0 z-50"
+   
+  <div className="fixed inset-0 z-50"
   
     >
 
@@ -73,7 +81,9 @@ export default function GalleryModal({ images, selected, setSelected }) {
 
   {/* ✅ CONTENT */}
 <motion.div
-  className="swipe-container relative flex items-center justify-center h-full"
+
+  ref={containerRef}
+  className="swipe-container relative z-10 flex items-center justify-center h-full"
   style={{ touchAction: "none" }}
   onClick={(e) => e.stopPropagation()}
 
