@@ -42,11 +42,7 @@ export default function GalleryModal({ images, selected, setSelected }) {
   
     >
 
-      {/* 🌫️ BACKGROUND */}
-      <div
-  className="absolute inset-0 bg-black/80 backdrop-blur-md pointer-events-none"
-/>
-
+ 
  {/* ✅ BACKGROUND OVERLAY */}
   <div
     className="absolute inset-0 bg-black/80 backdrop-blur-md"
@@ -81,7 +77,7 @@ export default function GalleryModal({ images, selected, setSelected }) {
 
   className="max-w-[95vw] max-h-[80vh] object-contain rounded-lg shadow-lg cursor-grab active:cursor-grabbing"
 
-  style={{ touchAction: "none" }}
+  style={{ touchAction: "pan-y" }}
 
   initial={{ x: direction > 0 ? 300 : -300, opacity: 0 }}
   animate={{ x: 0, opacity: 1 }}
