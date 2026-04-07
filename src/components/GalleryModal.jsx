@@ -53,15 +53,15 @@ useEffect(() => {
 
   return (
    
-  <div className="fixed inset-0 z-50"
+  <div className="fixed inset-0 z-50" onClick={() => setSelected(null)}
   
     >
 
  
  {/* ✅ BACKGROUND OVERLAY */}
   <div
-    className="absolute inset-0 bg-black/80 backdrop-blur-md z-0 pointer-events-auto"
-    onClick={() => setSelected(null)}
+    className="absolute inset-0 bg-black/80 backdrop-blur-md z-0 pointer-events-none"
+    onClick={(e) => e.stopPropagation()}
   />
 
   {/* ✅ CONTENT */}
