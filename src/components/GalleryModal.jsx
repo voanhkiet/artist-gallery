@@ -7,7 +7,15 @@ export default function GalleryModal({ images, selected, setSelected }) {
   const currentX = useRef(0);
   const containerRef = useRef(null);
 
-
+useEffect(() => {
+  if (selected) {
+    document.body.style.overflow = "hidden";
+    document.body.style.touchAction = "none"; // 🔥 CRITICAL
+  } else {
+    document.body.style.overflow = "auto";
+    document.body.style.touchAction = "auto";
+  }
+}, [selected]);
 
 
 
@@ -37,10 +45,7 @@ export default function GalleryModal({ images, selected, setSelected }) {
     return () => window.removeEventListener("keydown", handleKey);
   }, [selected, images]);
 
-  // 🔒 Lock scroll
-  useEffect(() => {
-    document.body.style.overflow = selected ? "hidden" : "auto";
-  }, [selected]);
+
 
   if (!selected) return null;
 
@@ -64,32 +69,7 @@ export default function GalleryModal({ images, selected, setSelected }) {
 
   ref={containerRef}
   className="swipe-container relative z-10 flex items-center justify-center h-full"
-  onClick={(e) => e.stopPropagation()}
-
-  onTouchStart={(e) => {
-  startX.current = e.touches[0].clientX;
-  currentX.current = e.touches[0].clientX;
-}}
-
-onTouchMove={(e) => {
-  currentX.current = e.touches[0].clientX;
-}}
-
-onTouchEnd={() => {
-  const diff = startX.current - currentX.current;
-
-  console.log("SWIPE:", diff);
-
-  if (Math.abs(diff) < 20) return;
-
-  if (diff > 0) {
-    setDirection(1);
-    setSelected(images[(currentIndex + 1) % images.length]);
-  } else {
-    setDirection(-1);
-    setSelected(images[(currentIndex - 1 + images.length) % images.length]);
-  }
-}}
+  
 >
 
         {/* ⬅️ PREVIOUS */}
@@ -110,7 +90,39 @@ onTouchEnd={() => {
   src={selected.image_url}
   alt={selected.title}
   draggable={false}
+
   className="max-w-[95vw] max-h-[80vh] object-contain rounded-lg shadow-lg"
+
+  style={{
+    touchAction: "none", // 🔥 CRITICAL
+    userSelect: "none"
+  }}
+
+  onTouchStart={(e) => {
+    startX.current = e.touches[0].clientX;
+    currentX.current = e.touches[0].clientX;
+    console.log("TOUCH START"); // 👈 debug
+  }}
+
+  onTouchMove={(e) => {
+    currentX.current = e.touches[0].clientX;
+  }}
+
+  onTouchEnd={() => {
+    const diff = startX.current - currentX.current;
+
+    console.log("SWIPE:", diff);
+
+    if (Math.abs(diff) < 20) return;
+
+    if (diff > 0) {
+      setDirection(1);
+      setSelected(images[(currentIndex + 1) % images.length]);
+    } else {
+      setDirection(-1);
+      setSelected(images[(currentIndex - 1 + images.length) % images.length]);
+    }
+  }}
 
   initial={{ x: direction > 0 ? 300 : -300, opacity: 0 }}
   animate={{ x: 0, opacity: 1 }}
