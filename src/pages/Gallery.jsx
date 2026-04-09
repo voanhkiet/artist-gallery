@@ -177,6 +177,7 @@ useEffect(() => {
         images={artworks}
         selected={selectedImage}
         setSelected={setSelectedImage}
+        setArtworks={setArtworks}
       />
     </div>
   );

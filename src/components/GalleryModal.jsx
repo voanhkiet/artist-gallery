@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { API_URL } from "..config";
-export default function GalleryModal({ images, selected, setSelected }) {
+import { API_URL } from "../config";
+export default function GalleryModal({ images, selected, setSelected, setArtworks }) {
   const [direction, setDirection] = useState(0);
   const startX = useRef(0);
   const currentX = useRef(0);
@@ -172,18 +172,27 @@ document.body.style.overflow = selected ? "hidden" : "auto";
     const data = await res.json();
 
     setArtworks(prev =>
-      prev.map(a =>
-        a.id === selected.id
-          ? {
-              ...a,
-              is_liked: data.liked,
-              likes_count: data.liked
-                ? (a.likes_count || 0) + 1
-                : Math.max((a.likes_count || 1) - 1, 0)
-            }
-          : a
-      )
-    );
+  prev.map(a =>
+    a.id === selected.id
+      ? {
+          ...a,
+          is_liked: data.liked,
+          likes_count: data.liked
+            ? (a.likes_count || 0) + 1
+            : Math.max((a.likes_count || 1) - 1, 0)
+        }
+      : a
+  )
+);
+
+// 🔥 update modal UI instantly
+setSelected(prev => ({
+  ...prev,
+  is_liked: data.liked,
+  likes_count: data.liked
+    ? (prev.likes_count || 0) + 1
+    : Math.max((prev.likes_count || 1) - 1, 0)
+}));
 
   } catch (err) {
     console.error(err);
