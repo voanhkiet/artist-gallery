@@ -14,20 +14,13 @@ export default function Gallery() {
 
   // 📡 Fetch data
 useEffect(() => {
-  const token = localStorage.getItem("token");
-
-  axios.get(`${API_URL}/api/images`, {
-    headers: token
-      ? { Authorization: `Bearer ${token}` }
-      : {},
-  })
+  axios.get(`${API_URL}/api/images`)
     .then((res) => {
       console.log("API DATA:", res.data);
 
       if (Array.isArray(res.data)) {
         setArtworks(res.data);
       } else {
-        console.log("NOT ARRAY:", res.data);
         setArtworks([]);
       }
     })
