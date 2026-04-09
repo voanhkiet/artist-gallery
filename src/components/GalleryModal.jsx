@@ -7,6 +7,8 @@ export default function GalleryModal({ images, selected, setSelected }) {
   const currentX = useRef(0);
   const containerRef = useRef(null);
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
 useEffect(() => {
   if (selected) {
 document.body.style.overflow = selected ? "hidden" : "auto";
