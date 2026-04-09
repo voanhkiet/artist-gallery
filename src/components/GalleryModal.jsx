@@ -173,7 +173,7 @@ document.body.style.overflow = selected ? "hidden" : "auto";
 
     setArtworks(prev =>
       prev.map(a =>
-        a.id === art.id
+        a.id === selected.id
           ? {
               ...a,
               is_liked: data.liked,
