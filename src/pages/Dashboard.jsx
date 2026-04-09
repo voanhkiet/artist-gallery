@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { uploadImage, getImages, deleteImage } from "../services/api";
-
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
   const navigate = useNavigate();
