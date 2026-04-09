@@ -10,10 +10,12 @@ export default function Gallery() {
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const token = localStorage.getItem("token");
+ 
 
   // 📡 Fetch data
 useEffect(() => {
+   const token = localStorage.getItem("token");
+   
   axios.get(`${API_URL}/api/images`, {
     headers: {
       Authorization: `Bearer ${token}`,
