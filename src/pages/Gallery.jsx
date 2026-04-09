@@ -13,16 +13,28 @@ export default function Gallery() {
   const token = localStorage.getItem("token");
 
   // 📡 Fetch data
-  useEffect(() => {
-   axios.get(`${API_URL}/api/images`, {
-  headers: token
-    ? { Authorization: `Bearer ${token}` }
-    : {},
-})
-      .then((res) => setArtworks(res.data))
-      .catch((err) => console.error(err))
-      .finally(() => setLoading(false));
-  }, []);
+useEffect(() => {
+  axios.get(`${API_URL}/api/images`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((res) => {
+      console.log("API DATA:", res.data); // 🔥 debug
+
+      // ✅ ensure array
+      if (Array.isArray(res.data)) {
+        setArtworks(res.data);
+      } else {
+        setArtworks([]); // fallback
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      setArtworks([]); // fallback
+    })
+    .finally(() => setLoading(false));
+}, []);
 
   // ⌨️ Keyboard navigation
   useEffect(() => {
@@ -72,7 +84,7 @@ export default function Gallery() {
       {!loading && artworks.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           
-          {artworks.map((art) => (
+          {Array.isArray(artworks) && artworks.map((art) => (
             <div
               key={art.id}
               onClick={() => setSelectedImage(art)}
@@ -122,8 +134,8 @@ export default function Gallery() {
               ...a,
               is_liked: data.liked,
               likes_count: data.liked
-                ? a.likes_count + 1
-                : a.likes_count - 1
+              ? (a.likes_count || 0) + 1
+              : Math.max((a.likes_count || 1) - 1, 0)
             }
           : a
       )
