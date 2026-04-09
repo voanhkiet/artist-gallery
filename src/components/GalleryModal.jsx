@@ -136,6 +136,55 @@ document.body.style.overflow = selected ? "hidden" : "auto";
 
         {/* 📝 INFO */}
         <div className="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/90 via-black/70 to-transparent text-white">
+          
+           {/* ❤️ LIKE SECTION */}
+  <div className="flex justify-between items-center mb-2">
+
+    <button
+      onClick={async () => {
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+          alert("Please login first");
+          return;
+        }
+
+        try {
+          const res = await fetch(
+            `${import.meta.env.VITE_API_URL}/api/likes/toggle/${selected.id}`,
+            {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          const data = await res.json();
+
+          // 🔥 update modal state
+          setSelected(prev => ({
+            ...prev,
+            is_liked: data.liked,
+            likes_count: data.liked
+              ? (prev.likes_count || 0) + 1
+              : (prev.likes_count || 1) - 1
+          }));
+
+        } catch (err) {
+          console.error(err);
+        }
+      }}
+      className="text-xl transition transform hover:scale-125"
+    >
+      {selected?.is_liked ? "❤️" : "🤍"}
+    </button>
+
+    <span className="text-sm text-gray-300">
+      {selected?.likes_count || 0} likes
+    </span>
+
+  </div>
 
           <h2 className="text-lg md:text-xl font-semibold">
             {selected.title}
