@@ -141,39 +141,53 @@ document.body.style.overflow = selected ? "hidden" : "auto";
   <div className="flex justify-between items-center mb-2">
 
     <button
-      onClick={async () => {
-        const token = localStorage.getItem("token");
+      onClick={async (e) => {
+  e.stopPropagation();
 
-        if (!token) {
-          alert("Please login first");
-          return;
-        }
+  const token = localStorage.getItem("token");
 
-        try {
-          const res = await fetch(
-            `${import.meta.env.VITE_API_URL}/api/likes/toggle/${selected.id}`,
-            {
-              method: "POST",
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
+  // 🚨 NOT LOGGED IN
+  if (!token) {
+    alert("Please login to like ❤️");
+    return;
+  }
+
+  try {
+    const res = await fetch(
+      `${API_URL}/api/likes/toggle/${art.id}`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (res.status === 401) {
+      alert("Session expired. Please login again.");
+      return;
+    }
+
+    const data = await res.json();
+
+    setArtworks(prev =>
+      prev.map(a =>
+        a.id === art.id
+          ? {
+              ...a,
+              is_liked: data.liked,
+              likes_count: data.liked
+                ? (a.likes_count || 0) + 1
+                : Math.max((a.likes_count || 1) - 1, 0)
             }
-          );
+          : a
+      )
+    );
 
-          const data = await res.json();
-
-          setSelected(prev => ({
-            ...prev,
-            is_liked: data.liked,
-            likes_count: data.liked
-              ? (prev.likes_count || 0) + 1
-              : (prev.likes_count || 1) - 1
-          }));
-
-        } catch (err) {
-          console.error(err);
-        }
-      }}
+  } catch (err) {
+    console.error(err);
+  }
+}}
       className="text-xl transition transform hover:scale-125"
     >
       {selected?.is_liked ? "❤️" : "🤍"}
