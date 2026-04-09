@@ -14,26 +14,26 @@ export default function Gallery() {
 
   // 📡 Fetch data
 useEffect(() => {
-   const token = localStorage.getItem("token");
-   
+  const token = localStorage.getItem("token");
+
   axios.get(`${API_URL}/api/images`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: token
+      ? { Authorization: `Bearer ${token}` }
+      : {},
   })
     .then((res) => {
-      console.log("API DATA:", res.data); // 🔥 debug
+      console.log("API DATA:", res.data);
 
-      // ✅ ensure array
       if (Array.isArray(res.data)) {
         setArtworks(res.data);
       } else {
-        setArtworks([]); // fallback
+        console.log("NOT ARRAY:", res.data);
+        setArtworks([]);
       }
     })
     .catch((err) => {
       console.error(err);
-      setArtworks([]); // fallback
+      setArtworks([]);
     })
     .finally(() => setLoading(false));
 }, []);
