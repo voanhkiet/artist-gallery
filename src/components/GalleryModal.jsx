@@ -155,7 +155,7 @@ document.body.style.overflow = selected ? "hidden" : "auto";
 
   try {
     const res = await fetch(
-      `${API_URL}/api/likes/toggle/${art.id}`,
+      `${API_URL}/api/likes/toggle/${selected.id}`,
       {
         method: "POST",
         headers: {
