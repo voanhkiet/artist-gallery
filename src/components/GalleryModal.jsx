@@ -135,9 +135,9 @@ document.body.style.overflow = selected ? "hidden" : "auto";
   
 
         {/* 📝 INFO */}
-        <div className="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/90 via-black/70 to-transparent text-white">
-          
-           {/* ❤️ LIKE SECTION */}
+       <div className="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/90 via-black/70 to-transparent text-white">
+
+  {/* ❤️ LIKE SECTION */}
   <div className="flex justify-between items-center mb-2">
 
     <button
@@ -162,7 +162,6 @@ document.body.style.overflow = selected ? "hidden" : "auto";
 
           const data = await res.json();
 
-          // 🔥 update modal state
           setSelected(prev => ({
             ...prev,
             is_liked: data.liked,
@@ -186,33 +185,37 @@ document.body.style.overflow = selected ? "hidden" : "auto";
 
   </div>
 
-          <h2 className="text-lg md:text-xl font-semibold">
-            {selected.title}
-          </h2>
+  {/* TITLE */}
+  <h2 className="text-lg md:text-xl font-semibold">
+    {selected.title}
+  </h2>
 
-          {selected.description && (
-            <p className="text-sm text-gray-300 mt-1 line-clamp-2">
-              {selected.description}
-            </p>
-          )}
+  {/* DESCRIPTION */}
+  {selected.description && (
+    <p className="text-sm text-gray-300 mt-1 line-clamp-2">
+      {selected.description}
+    </p>
+  )}
 
-          <div className="flex justify-between items-center mt-3 text-xs text-gray-400">
+  {/* META */}
+  <div className="flex justify-between items-center mt-3 text-xs text-gray-400">
 
-            <div className="flex flex-col">
-              <span>By {selected.user || "Unknown"}</span>
-              <span>
-                {selected.created_at
-                  ? new Date(selected.created_at).toLocaleDateString()
-                  : ""}
-              </span>
-            </div>
+    <div className="flex flex-col">
+      <span>By {selected.user || "Unknown"}</span>
+      <span>
+        {selected.created_at
+          ? new Date(selected.created_at).toLocaleDateString()
+          : ""}
+      </span>
+    </div>
 
-            <div className="bg-black/50 px-3 py-1 rounded-full text-white">
-              {currentIndex + 1} / {images.length}
-            </div>
+    <div className="bg-black/50 px-3 py-1 rounded-full text-white">
+      {currentIndex + 1} / {images.length}
+    </div>
 
-          </div>
-        </div>
+  </div>
+
+</div>
 
       </motion.div>
     </div>
