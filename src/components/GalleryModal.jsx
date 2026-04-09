@@ -1,13 +1,12 @@
 import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
+import { API_URL } from "..config";
 export default function GalleryModal({ images, selected, setSelected }) {
   const [direction, setDirection] = useState(0);
   const startX = useRef(0);
   const currentX = useRef(0);
   const containerRef = useRef(null);
 
-  const API_URL = import.meta.env.VITE_API_URL;
 
 useEffect(() => {
   if (selected) {
