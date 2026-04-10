@@ -59,7 +59,7 @@ export default function GalleryModal({
       />
 
       {/* 🔥 CONTENT */}
-      <motion.div className="relative z-10 flex items-center justify-center h-full">
+      <motion.div className="relative z-10 flex items-center justify-center h-full pointer-events-none">
         <div className="pointer-events-auto">
         {/* IMAGE */}
         <AnimatePresence mode="wait">
