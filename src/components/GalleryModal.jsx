@@ -149,9 +149,10 @@ document.body.style.overflow = selected ? "hidden" : "auto";
 
   // 🚨 NOT LOGGED IN
   if (!token) {
-    alert("Please login to like ❤️");
-    return;
-  }
+  // redirect instead of alert
+  window.location.href = "/login";
+  return;
+}
 
   try {
     const res = await fetch(

@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import Navbar from "./components/Navbar";
 import ArtDetail from "./pages/ArtDetail";
 import Gallery from "./pages/Gallery";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -24,7 +25,11 @@ function App() {
         {/* 🔒 Protected Route */}
         <Route
           path="/dashboard"
-          element={token ? <Dashboard /> : <Navigate to="/login" />}
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
         />
       
         <Route path="/art/:id" element={<ArtDetail/>} />
