@@ -60,7 +60,7 @@ export default function GalleryModal({
 
       {/* 🔥 CONTENT */}
       <motion.div className="relative z-10 flex items-center justify-center h-full">
-
+        <div className="pointer-events-auto">
         {/* IMAGE */}
         <AnimatePresence mode="wait">
           <motion.img
@@ -223,6 +223,7 @@ export default function GalleryModal({
               {currentIndex + 1} / {images.length}
             </div>
           </div>
+        </div>
         </div>
       </motion.div>
     </motion.div>
