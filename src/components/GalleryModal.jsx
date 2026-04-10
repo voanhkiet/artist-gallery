@@ -54,7 +54,7 @@ export default function GalleryModal({
     >
       {/* 🔥 BACKGROUND (click to close) */}
       <div
-        className="absolute inset-0 bg-black/80 backdrop-blur-md"
+        className="absolute inset-0 bg-black/80 backdrop-blur-md z-0"
         onClick={() => setSelected(null)}
       />
 
