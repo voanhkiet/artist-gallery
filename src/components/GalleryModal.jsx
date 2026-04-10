@@ -58,12 +58,14 @@ document.body.style.overflow = selected ? "hidden" : "auto";
   initial={{ opacity: 0 }}
   animate={{ opacity: 1 }}
   exit={{ opacity: 0 }}
-  onClick={() => setSelected(null)}
- 
 >
   <motion.div
-    className="relative z-10 flex items-center justify-center h-full"
-    onClick={(e) => e.stopPropagation()}
+    className="relative flex items-center justify-center h-full"
+    onClick={(e) => {
+      if (e.target === e.currentTarget) {
+        setSelected(null);
+      }
+    }}
   >
 
 
