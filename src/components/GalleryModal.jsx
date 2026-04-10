@@ -53,20 +53,18 @@ document.body.style.overflow = selected ? "hidden" : "auto";
 
   return (
    
-<div className="fixed inset-0 z-[9999]">
-
- 
- {/* ✅ BACKGROUND OVERLAY */}
-<div
-  className="absolute inset-0 bg-black/80 backdrop-blur-md"
-  onClick={() => setSelected(null)}
-/>
-
-  {/* ✅ CONTENT */}
 <motion.div
-  className="relative z-10 flex items-center justify-center h-full"
-  onClick={(e) => e.stopPropagation()}
+  className="fixed inset-0 z-[9999] bg-black/80 backdrop-blur-md"
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  exit={{ opacity: 0 }}
+  onClick={() => setSelected(null)}
+ 
 >
+  <motion.div
+    className="relative z-10 flex items-center justify-center h-full"
+    onClick={(e) => e.stopPropagation()}
+  >
 
 
         {/* IMAGE */}
