@@ -11,7 +11,7 @@ export default function Navbar({ token, setToken }) {
     localStorage.removeItem("token");
     setToken(null);
     setOpen(false);
-    navigate("/login");
+    navigate("/");
   };
 
   return (
@@ -143,7 +143,7 @@ className={`py-4 px-4 rounded-xl transition active:scale-[0.98] border border-wh
             to="/login"
             onClick={() => setOpen(false)}
 className={`py-4 px-4 rounded-xl transition active:scale-[0.98] border border-white/10 ${
-  location.pathname === "/"
+  location.pathname === "/login"
     ? "bg-white/15 text-white shadow-inner"
     : "bg-white/5 text-white hover:bg-white/10 hover:scale-[1.02]"
 }`}>
@@ -154,7 +154,7 @@ className={`py-4 px-4 rounded-xl transition active:scale-[0.98] border border-wh
             to="/register"
             onClick={() => setOpen(false)}
 className={`py-4 px-4 rounded-xl transition active:scale-[0.98] border border-white/10 ${
-  location.pathname === "/"
+  location.pathname === "/register"
     ? "bg-white/15 text-white shadow-inner"
     : "bg-white/5 text-white hover:bg-white/10 hover:scale-[1.02]"
 }`}>
@@ -167,7 +167,7 @@ className={`py-4 px-4 rounded-xl transition active:scale-[0.98] border border-wh
             to="/dashboard"
             onClick={() => setOpen(false)}
 className={`py-4 px-4 rounded-xl transition active:scale-[0.98] border border-white/10 ${
-  location.pathname === "/"
+  location.pathname === "/dashboard"
     ? "bg-white/15 text-white shadow-inner"
     : "bg-white/5 text-white hover:bg-white/10 hover:scale-[1.02]"
 }`}>
