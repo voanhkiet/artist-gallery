@@ -9,6 +9,7 @@ import Navbar from "./components/Navbar";
 import ArtDetail from "./pages/ArtDetail";
 import Gallery from "./pages/Gallery";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ArtistProfile from "./pages/ArtistProfile";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -33,6 +34,7 @@ function App() {
         />
       
         <Route path="/art/:id" element={<ArtDetail/>} />
+        <Route path="/artist/:username" element={<ArtistProfile />} />
       </Routes>
     </BrowserRouter>
   );

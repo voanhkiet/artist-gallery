@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { API_URL } from "../config";
+import { Link } from "react-router-dom";
 
 export default function GalleryModal({
   images,
@@ -211,7 +212,12 @@ export default function GalleryModal({
           {/* META */}
           <div className="flex justify-between items-center mt-3 text-xs text-gray-400">
             <div>
-              <div>By {selected.user || "Unknown"}</div>
+              <Link
+                to={`/artist/${selected.user}`}
+                className="underline hover:text-white"
+              >
+                { selected.user } 
+              </Link>
               <div>
                 {selected.created_at
                   ? new Date(selected.created_at).toLocaleDateString()
