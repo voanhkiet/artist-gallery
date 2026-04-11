@@ -25,6 +25,7 @@ useEffect(() => {
     navigate("/login");
   } else {
     loadImages();
+    loadProfile();
   }
 }, [token, navigate]); // ✅ add navigate
 
@@ -36,7 +37,23 @@ useEffect(() => {
   };
 }, [preview]);
 
+const loadProfile = async () => {
+  try {
+    const res = await fetch(`${API_URL}/api/images/user/profile`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
+    const data = await res.json();
+
+    setBio(data.bio || "");
+    setAvatar(data.avatar_url || "");
+
+  } catch (err) {
+    console.error(err);
+  }
+};
   
     // ✅ CHECK LOGIN FIRST
   const handleUpload = async () => {
@@ -97,7 +114,9 @@ useEffect(() => {
 
     const data = await res.json();
 
-    alert("Profile updated!");
+    setTimeout(() => {
+  alert("Profile updated!");
+}, 200);
   } catch (err) {
     console.error(err);
   }
@@ -106,10 +125,13 @@ useEffect(() => {
   <div className="min-h-screen bg-gray-100 p-10">
   <h2 className="text-3xl font-bold mb-6">Dashboard</h2>
   <div className="bg-white p-6 rounded-2xl shadow mb-6 flex items-center gap-4">
-  <img
-    src={avatar || "https://via.placeholder.com/80"}
-    className="w-16 h-16 rounded-full object-cover"
-  />
+ <img
+  src={avatar || "https://via.placeholder.com/80"}
+  onError={(e) => {
+    e.target.src = "https://via.placeholder.com/80";
+  }}
+  className="w-16 h-16 rounded-full object-cover"
+/>
 
   <div>
     <h2 className="text-xl font-bold">Your Profile</h2>
