@@ -125,10 +125,10 @@ const loadProfile = async () => {
   <div className="min-h-screen bg-gray-100 p-10">
   <h2 className="text-3xl font-bold mb-6">Dashboard</h2>
   <div className="bg-white p-6 rounded-2xl shadow mb-6 flex items-center gap-4">
- <img
-  src={avatar || "https://via.placeholder.com/80"}
+<img
+  src={avatar || "https://ui-avatars.com/api/?name=Artist&background=000&color=fff"}
   onError={(e) => {
-    e.target.src = "https://via.placeholder.com/80";
+    e.target.src = "https://ui-avatars.com/api/?name=Artist&background=000&color=fff";
   }}
   className="w-16 h-16 rounded-full object-cover"
 />
