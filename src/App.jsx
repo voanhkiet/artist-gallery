@@ -10,6 +10,8 @@ import ArtDetail from "./pages/ArtDetail";
 import Gallery from "./pages/Gallery";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ArtistProfile from "./pages/ArtistProfile";
+import Admin from "./pages/Admin";
+import AdminRoute from "./components/AdminRoute";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -35,6 +37,12 @@ function App() {
       
         <Route path="/art/:id" element={<ArtDetail/>} />
         <Route path="/artist/:username" element={<ArtistProfile />} />
+        <Route path="/admin" element={
+          <AdminRoute>
+            <Admin />
+          </AdminRoute>
+        } 
+          />
       </Routes>
     </BrowserRouter>
   );

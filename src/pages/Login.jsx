@@ -18,6 +18,7 @@ export default function Login({ setToken}) {
 
       console.log(res); // debug
       localStorage.setItem("token", res.token);
+      localStorage.setItem("role", res.role);
 
      
 
