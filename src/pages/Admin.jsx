@@ -16,7 +16,8 @@ export default function Admin() {
 
       const data = await res.json();
 
-      console.log("ADMIN API:", data); // 🔥 debug
+      console.log("STATUS:", res.status);
+      console.log("DATA:", data); // 🔥 debug
 
       if (Array.isArray(data)) {
         setUsers(data);
