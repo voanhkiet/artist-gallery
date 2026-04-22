@@ -15,7 +15,16 @@ export default function Admin() {
       });
 
       const data = await res.json();
-      setUsers(data);
+
+      console.log("ADMIN API:", data); // 🔥 debug
+
+      if (Array.isArray(data)) {
+        setUsers(data);
+      } else {
+        console.error("API ERROR:", data);
+        setUsers([]);
+      }
+
     } catch (err) {
       console.error(err);
     }
@@ -34,7 +43,6 @@ export default function Admin() {
         },
       });
 
-      // reload list after approve
       loadUsers();
 
     } catch (err) {
@@ -44,16 +52,14 @@ export default function Admin() {
 
   return (
     <div className="min-h-screen bg-gray-100 p-10">
-      <h1 className="text-3xl font-bold mb-6">
-        🛠 Admin Panel
-      </h1>
+      <h1 className="text-3xl font-bold mb-6">🛠 Admin Panel</h1>
 
       {users.length === 0 && (
         <p className="text-gray-500">No pending artists</p>
       )}
 
       <div className="space-y-4">
-        {users.map((u) => (
+        {Array.isArray(users) && users.map((u) => (
           <div
             key={u.id}
             className="bg-white p-4 rounded-xl shadow flex justify-between items-center"
