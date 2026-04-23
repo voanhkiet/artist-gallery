@@ -6,6 +6,7 @@ export default function Register() {
     username: "",
     email: "",
     password: "",
+    role: "user",
   });
 
   const handleSubmit = async (e) => {
@@ -58,6 +59,16 @@ export default function Register() {
         }
         className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
       />
+      <select
+        value={form.role}
+        onChange={(e) =>
+          setForm({ ...form, role: e.target.value })
+        }
+        className="w-full p-3 border rounded-lg"
+      >
+        <option value="user">User</option>
+        <option value="artist">Artist</option>
+      </select>
 
       <button
         type="submit"
