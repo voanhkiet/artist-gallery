@@ -180,6 +180,15 @@ className={`py-3 px-4 rounded-xl transition active:scale-[0.98] border border-wh
         </>
       ) : (
         <>
+        {role === "admin" && (
+  <Link
+    to="/admin"
+    onClick={() => setOpen(false)}
+    className={`py-3 px-4 rounded-xl transition active:scale-[0.98] border border-yellow-500/20 bg-yellow-500/10 text-yellow-300`}
+  >
+    🛠 Admin
+  </Link>
+)}
           <Link
             to="/dashboard"
             onClick={() => setOpen(false)}
