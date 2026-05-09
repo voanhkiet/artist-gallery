@@ -40,7 +40,7 @@ export default function Navbar({ token, setToken }) {
         <div className="hidden md:flex gap-8 text-lg items-center">
 <Link
   to="/"
-  className={`py-4 rounded-lg px-3 transition ${
+  className={`py-3 rounded-lg px-3 transition ${
     location.pathname === "/"
       ? "bg-white/10 text-white"
       : "hover:bg-white/5 hover:text-gray-400"
@@ -54,7 +54,7 @@ export default function Navbar({ token, setToken }) {
             <>
 <Link
   to="/login"
-  className={`py-4 rounded-lg px-3 transition ${
+  className={`py-3 rounded-lg px-3 transition ${
     location.pathname === "/login"
       ? "bg-white/10 text-white"
       : "hover:bg-white/5 hover:text-gray-400"
@@ -66,7 +66,7 @@ export default function Navbar({ token, setToken }) {
 
 <Link
   to="/register"
-  className={`py-4 rounded-lg px-3 transition ${
+  className={`py-3 rounded-lg px-3 transition ${
     location.pathname === "/register"
       ? "bg-white/10 text-white"
       : "hover:bg-white/5 hover:text-gray-400"
@@ -82,7 +82,7 @@ export default function Navbar({ token, setToken }) {
   <Link
     to="/admin"
     onClick={() => setOpen(false)}
-    className="py-4 px-4 rounded-xl bg-yellow-500/20 text-yellow-300 border border-yellow-500/20"
+    className="py-3 px-4 rounded-xl bg-yellow-500/20 text-yellow-300 border border-yellow-500/20"
   >
     Admin
   </Link>
@@ -119,7 +119,7 @@ export default function Navbar({ token, setToken }) {
       {/* 📱 MOBILE MENU */}
 {/* 📱 MOBILE MENU */}
 <div
-  className={`fixed inset-0 flex justify-center items-start pt-14 z-50 transition-all duration-300 ${
+  className={`fixed inset-0 flex justify-center items-start pt-4 md:pt-14 z-50 transition-all duration-300 overflow-y-auto ${
     open ? "opacity-100" : "opacity-0 pointer-events-none"
   }`}
 >
@@ -130,10 +130,9 @@ export default function Navbar({ token, setToken }) {
   />
 
   {/* MENU PANEL */}
-  <div className="relative mt-2 w-[92%] md:w-[600px] max-w-md bg-black text-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.8)] overflow-hidden animate-slideDown">
-
+<div className="relative mt-2 w-[92%] md:w-[600px] max-w-md bg-black text-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.8)] overflow-hidden animate-slideDown max-h-[90vh] overflow-y-auto">
     {/* HEADER */}
-    <div className="flex justify-between items-center px-6 py-4 border-b border-gray-800">
+    <div className="flex justify-between items-center px-6 py-3 border-b border-gray-800">
       <h1 className="text-xl font-bold">🎨 Art Gallery</h1>
       <button onClick={() => setOpen(false)} className="text-2xl">
         ✖
@@ -141,12 +140,12 @@ export default function Navbar({ token, setToken }) {
     </div>
 
     {/* ITEMS */}
-<div className="flex flex-col gap-2 px-4 py-4 text-lg">
-        <Link
+<div className="flex flex-col gap-3 px-4 py-3 text-lg">
+          <Link
         to="/"
         onClick={() => setOpen(false)}
 
-className={`py-4 px-4 rounded-xl transition active:scale-[0.98] border border-white/10 ${
+className={`py-3 px-4 rounded-xl transition active:scale-[0.98] border border-white/10 ${
   location.pathname === "/"
     ? "bg-white/15 text-white shadow-inner"
     : "bg-white/5 text-white hover:bg-white/10 hover:scale-[1.02]"
@@ -160,7 +159,7 @@ className={`py-4 px-4 rounded-xl transition active:scale-[0.98] border border-wh
           <Link
             to="/login"
             onClick={() => setOpen(false)}
-className={`py-4 px-4 rounded-xl transition active:scale-[0.98] border border-white/10 ${
+className={`py-3 px-4 rounded-xl transition active:scale-[0.98] border border-white/10 ${
   location.pathname === "/login"
     ? "bg-white/15 text-white shadow-inner"
     : "bg-white/5 text-white hover:bg-white/10 hover:scale-[1.02]"
@@ -171,7 +170,7 @@ className={`py-4 px-4 rounded-xl transition active:scale-[0.98] border border-wh
           <Link
             to="/register"
             onClick={() => setOpen(false)}
-className={`py-4 px-4 rounded-xl transition active:scale-[0.98] border border-white/10 ${
+className={`py-3 px-4 rounded-xl transition active:scale-[0.98] border border-white/10 ${
   location.pathname === "/register"
     ? "bg-white/15 text-white shadow-inner"
     : "bg-white/5 text-white hover:bg-white/10 hover:scale-[1.02]"
@@ -184,7 +183,7 @@ className={`py-4 px-4 rounded-xl transition active:scale-[0.98] border border-wh
           <Link
             to="/dashboard"
             onClick={() => setOpen(false)}
-className={`py-4 px-4 rounded-xl transition active:scale-[0.98] border border-white/10 ${
+className={`py-3 px-4 rounded-xl transition active:scale-[0.98] border border-white/10 ${
   location.pathname === "/dashboard"
     ? "bg-white/15 text-white shadow-inner"
     : "bg-white/5 text-white hover:bg-white/10 hover:scale-[1.02]"
@@ -194,7 +193,7 @@ className={`py-4 px-4 rounded-xl transition active:scale-[0.98] border border-wh
 
           <button
             onClick={handleLogout}
-            className="py-4 text-left text-red-400"
+            className="py-3 text-left text-red-400"
           >
             Logout
           </button>
