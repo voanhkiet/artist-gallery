@@ -7,8 +7,11 @@ export default function Navbar({ token, setToken }) {
 
   const location = useLocation();
 
+  const role = localStorage.getItem("role")
+
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("role");
     setToken(null);
     setOpen(false);
     navigate("/");
@@ -75,9 +78,24 @@ export default function Navbar({ token, setToken }) {
             </>
           ) : (
             <>
+ {role === "admin" && (
+  <Link
+    to="/admin"
+    onClick={() => setOpen(false)}
+    className="py-4 px-4 rounded-xl bg-yellow-500/20 text-yellow-300 border border-yellow-500/20"
+  >
+    Admin
+  </Link>
+)}
               <Link to="/dashboard" className="hover:text-gray-400">
                 Dashboard
               </Link>
+<span className="
+  px-3 py-1 rounded-full text-sm
+  bg-white/10 text-gray-300
+">
+  {role}
+</span>
 
               <button
                 onClick={handleLogout}
