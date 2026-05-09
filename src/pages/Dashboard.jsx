@@ -14,6 +14,7 @@ export default function Dashboard() {
   const [uploading, setUploading] = useState(false);
 
   const token = localStorage.getItem("token");
+  const role = localStorage.getItem("role");
 
 
   const loadImages = () => {
@@ -169,9 +170,17 @@ const loadProfile = async () => {
   </div>
 
   {/* 🎨 UPLOAD */}
+  {role === "pending_artist" && (
+  <div className="bg-yellow-100 text-yellow-800 p-4 rounded-xl mb-6">
+    ⏳ Your artist account is waiting for admin approval.
+  </div>
+)}
   <h2 className="text-xl font-semibold mb-3">🖼 Upload Artwork</h2>
-  <div className="bg-white p-6 rounded-2xl shadow mb-8 flex flex-col md:flex-row gap-4 items-center">
-
+<div
+  className={`bg-white p-6 rounded-2xl shadow mb-8 flex flex-col md:flex-row gap-4 items-center
+    ${role !== "artist" ? "opacity-50 pointer-events-none" : ""}
+  `}
+>
    <label className="cursor-pointer border-2 border-dashed border-gray-300 p-6 rounded-xl text-center hover:bg-gray-50">
   {file ? file.name : "Click or drag image here"}
   <input
@@ -196,9 +205,15 @@ const loadProfile = async () => {
 
 <button
   onClick={handleUpload}
-  disabled={!file || !title || !token || uploading}
+  disabled={
+    !file ||
+    !title ||
+    !token ||
+    uploading ||
+    role !== "artist"
+  }
   className={`px-6 py-2 rounded-lg text-white
-    ${file && title && token && !uploading
+    ${file && title && token && !uploading && role === "artist"
       ? "bg-black hover:bg-gray-800"
       : "bg-gray-400 cursor-not-allowed"}
   `}
