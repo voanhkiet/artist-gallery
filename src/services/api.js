@@ -1,4 +1,4 @@
-const API = "https://artist-gallery-backend.onrender.com/api";
+const API = "https://api/hoasidongthap.online/api";
 
 // GET all images
 export const getImages = async () => {
