@@ -14,7 +14,7 @@ export default function Gallery() {
 
   // 📡 Fetch data
 useEffect(() => {
-  axios.get(`${API_URL}/api/images`)
+  axios.get(`${API_URL}/api/images/`)
     .then((res) => {
       console.log("API DATA:", res.data);
 
@@ -111,7 +111,7 @@ useEffect(() => {
 
   try {
     const res = await fetch(
-      `${API_URL}/api/likes/toggle/${art.id}`,
+      `${API_URL}/api/likes/toggle/${art.id}/`,
       {
         method: "POST",
         headers: {
