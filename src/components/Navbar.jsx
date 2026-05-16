@@ -116,7 +116,6 @@ export default function Navbar({ token, setToken }) {
   />
 )}   
 
-      {/* 📱 MOBILE MENU */}
 {/* 📱 MOBILE MENU */}
 <div
   className={`fixed inset-0 flex justify-center items-start pt-4 md:pt-14 z-50 transition-all duration-300 overflow-y-auto ${
