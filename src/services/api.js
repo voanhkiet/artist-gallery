@@ -1,5 +1,4 @@
-const API = "https://api/hoasidongthap.online/api";
-
+const API = `${import.meta.env.VITE_API_URL}/api`;
 // GET all images
 export const getImages = async () => {
   const res = await fetch(`${API}/images/`); // ✅ FIXED
